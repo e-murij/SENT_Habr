@@ -1,1 +1,28 @@
-<h1> Header </h1>
+<div id="templatemo_header_wrapper">
+	<div id="templatemo_header">
+
+       <div id="site_title">
+            <h1><a href="index.html">
+                <img src="static/mainapp/images/templatemo_logo.png" alt="tripod blog" /></a>
+                <span>free blog template</span>
+            </h1>
+        </div>
+
+        <div id="templatemo_rss">
+            <a href="" target="_parent">SUBSCRIBE<br /><span>OUR FEED</span></a>
+    	</div>
+
+    </div> <!-- end of header -->
+
+    <div id="templatemo_menu">
+
+        <ul>
+            <li><a href="index.html" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+    </div> <!-- end of templatemo_menu -->
+
+</div> <!-- end of header wrapper -->
