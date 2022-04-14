@@ -1,5 +1,7 @@
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, FormView
 
+from authapp.forms import UserRegisterForm
 from authapp.models import User
 
 
@@ -8,9 +10,14 @@ class Login(ListView):  # FormView
     model = User
 
 
-class Register(ListView):  # CreateView
-    template_name = 'authapp/register_form.html'
-    model = User
+class RegisterFormView(FormView):
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('auth:edit')
+    template_name = "authapp/register_form.html"
+
+    def form_valid(self, form):
+        form.save()
+        return super(RegisterFormView, self).form_valid(form)
 
 
 class Logout(ListView):
