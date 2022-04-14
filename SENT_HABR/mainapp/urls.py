@@ -9,7 +9,7 @@ from .views import IndexListView, \
                     WebDevelopmentListView
 
 urlpatterns = [
-    path('', IndexListView.as_view()),
+    path('', IndexListView.as_view(), name='index'),
     path('<int:pk>/', SectionListView.as_view(), name='section'),
     path('help', HelpListView.as_view(), name='help'),
     path('design', DesignListView.as_view(), name='design'),

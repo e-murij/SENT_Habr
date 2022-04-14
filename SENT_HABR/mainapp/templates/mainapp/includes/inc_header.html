@@ -18,11 +18,11 @@
 
         <ul>
             <li><a href="/" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Home</a></li>
-            <li><a href="{% url 'design' %}" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Design</a></li>
-            <li><a href="{% url 'web_development' %}" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Web Dev</a></li>
-            <li><a href="{% url 'mobile_development' %}" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Mobile Dev</a></li>
-            <li><a href="{% url 'marketing' %}" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Marketing</a></li>
-            <li><a href="{% url 'help' %}">Help</a></li>
+            <li><a href="{% url 'design' %}" class="{% if request.resolver_match.view_name == 'design' %}current{% endif %}">Design</a></li>
+            <li><a href="{% url 'web_development' %}" class="{% if request.resolver_match.view_name == 'web_development' %}current{% endif %}">Web Dev</a></li>
+            <li><a href="{% url 'mobile_development' %}" class="{% if request.resolver_match.view_name == 'mobile_development' %}current{% endif %}">Mobile Dev</a></li>
+            <li><a href="{% url 'marketing' %}" class="{% if request.resolver_match.view_name == 'marketing' %}current{% endif %}">Marketing</a></li>
+            <li><a href="{% url 'help' %}" class="{% if request.resolver_match.view_name == 'help' %}current{% endif %}">Help</a></li>
         </ul>
 
     </div> <!-- end of templatemo_menu -->
