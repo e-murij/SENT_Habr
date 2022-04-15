@@ -1,18 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    {#    <title>Tripod Blog Theme - Free CSS Templates</title>#}
+    <meta name="keywords" content="SENT_HABR"/>
+    <meta name="description" content="SENT_HABR"/>
+    <link href="{% static 'mainapp/templatemo_style.css' %}" rel="stylesheet" type="text/css"/>
+    <title>{% block title %}{{ title|title }}{% endblock %}</title>
+    {% block pirobox_js %}
+    {% endblock %}
 </head>
 <body>
 
-    {% include 'mainapp/includes/inc_header.html' %}
+{% include 'mainapp/includes/inc_header.html' %}
 
-    {% block content %}
-    {% endblock %}
+<div id="templatemo_main_wrapper">
+    <div id="templatemo_content_wrapper">
+        <div id="templatemo_content">
+            {% block content %}
+            {% endblock %}
+        </div>
 
-    {% include 'mainapp/includes/inc_footer.html' %}
+        {% include 'mainapp/includes/sidebar_one.html' %}
+        {% include 'mainapp/includes/sidebar_two.html' %}
 
+        <div class="cleaner"></div>
+    </div> <!-- end of content wrapper -->
+</div>
 
+{% include 'mainapp/includes/inc_footer.html' %}
+
+{% block js %}
+{% endblock %}
 </body>
 </html>

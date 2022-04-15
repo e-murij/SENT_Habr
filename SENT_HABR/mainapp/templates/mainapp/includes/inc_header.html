@@ -1,1 +1,40 @@
-<h1> Header </h1>
+{% load static %}
+<div id="templatemo_header_wrapper">
+	<div id="templatemo_header">
+
+       <div id="site_title">
+            <h1><a href="index.html">
+                <img src="{% static 'mainapp/images/templatemo_logo.png' %}" alt="tripod blog" /></a>
+                <span>GB sent habr project</span>
+            </h1>
+        </div>
+        {% if user.is_authenticated %}
+            <div id="templatemo_rss">
+                <a href="{% url 'auth:logout' %}" target="_parent">{{ user.first_name|default:'Пользователь' }}<br /><span>Выйти</span></a>
+            </div>
+        {% else %}
+            <div id="templatemo_rss">
+                <a href="{% url 'auth:login' %}" target="_parent">Войти</a>
+            </div>
+        {% endif %}
+
+    </div> <!-- end of header -->
+
+    <div id="templatemo_menu">
+        <ul>
+            <li>
+                <a href="{% url 'index' %}" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Все</a>
+            </li>
+            {% for link in sections_menu %}
+                <li>
+                    <a href="{% url 'section' link.pk %}"
+                      class="{% if request.resolver_match.kwargs.pk == link.pk %}current{% endif %}">{{ link.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div> <!-- end of templatemo_menu -->
+
+</div> <!-- end of header wrapper -->
+
