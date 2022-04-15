@@ -1,6 +1,8 @@
 from django.views.generic import ListView
 from articleapp.models import Article
 
+from .forms import ArticleCreateForm
+
 
 class ArticleDetailView(ListView):  # DetailView
     template_name = 'articleapp/article_read.html'
@@ -20,3 +22,8 @@ class ArticleDeleteView(ListView):  # DeleteView
 class ArticleCreateView(ListView):  # CreateView
     template_name = 'articleapp/article_create.html'
     model = Article
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleCreateView, self).get_context_data(**kwargs)
+        context['form_class'] = ArticleCreateForm
+        return context
