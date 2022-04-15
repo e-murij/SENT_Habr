@@ -6,7 +6,6 @@ from .models import Article
 class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = '__all__'
         exclude = ('author', 'is_active', 'is_published',)
 
     # Всем полям формы добавляется значение 'form-control' http-атрибута 'class'

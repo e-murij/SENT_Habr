@@ -1,4 +1,5 @@
-from django.views.generic import ListView
+from django.http import HttpResponseRedirect
+from django.views.generic import ListView, CreateView
 from articleapp.models import Article
 
 from .forms import ArticleCreateForm
@@ -19,9 +20,16 @@ class ArticleDeleteView(ListView):  # DeleteView
     model = Article
 
 
-class ArticleCreateView(ListView):  # CreateView
+class ArticleCreateView(CreateView):
     template_name = 'articleapp/article_create.html'
-    model = Article
+    form_class = ArticleCreateForm
+    success_url = '/'   # todo Change to redirect
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.author = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         context = super(ArticleCreateView, self).get_context_data(**kwargs)
