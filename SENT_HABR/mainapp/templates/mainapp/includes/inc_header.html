@@ -7,22 +7,30 @@
                 <span>GB sent habr project</span>
             </h1>
         </div>
-
-        <div id="templatemo_rss">
-            <a href="" target="_parent">SUBSCRIBE<br /><span>OUR FEED</span></a>
-    	</div>
+        {% if user.is_authenticated %}
+            <div id="templatemo_rss">
+                <a href="{% url 'auth:logout' %}" target="_parent">{{ user.first_name|default:'Пользователь' }}<br /><span>Выйти</span></a>
+            </div>
+        {% else %}
+            <div id="templatemo_rss">
+                <a href="{% url 'auth:login' %}" target="_parent">Войти</a>
+            </div>
+        {% endif %}
 
     </div> <!-- end of header -->
 
     <div id="templatemo_menu">
-
         <ul>
-            <li><a href="/" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Home</a></li>
-            <li><a href="{% url 'design' %}" class="{% if request.resolver_match.view_name == 'design' %}current{% endif %}">Design</a></li>
-            <li><a href="{% url 'web_development' %}" class="{% if request.resolver_match.view_name == 'web_development' %}current{% endif %}">Web Dev</a></li>
-            <li><a href="{% url 'mobile_development' %}" class="{% if request.resolver_match.view_name == 'mobile_development' %}current{% endif %}">Mobile Dev</a></li>
-            <li><a href="{% url 'marketing' %}" class="{% if request.resolver_match.view_name == 'marketing' %}current{% endif %}">Marketing</a></li>
-            <li><a href="{% url 'help' %}" class="{% if request.resolver_match.view_name == 'help' %}current{% endif %}">Help</a></li>
+            <li>
+                <a href="{% url 'index' %}" class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Все</a>
+            </li>
+            {% for link in sections_menu %}
+                <li>
+                    <a href="{% url 'section' link.pk %}"
+                      class="{% if request.resolver_match.view_name == 'link.name' %}current{% endif %}">{{ link.name }}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
 
     </div> <!-- end of templatemo_menu -->
