@@ -1,5 +1,6 @@
 {% load static %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -13,24 +14,25 @@
 </head>
 <body>
 
-    {% include 'mainapp/includes/inc_header.html' %}
+{% include 'mainapp/includes/inc_header.html' %}
 
-    <div id="templatemo_main_wrapper">
-        <div id="templatemo_content_wrapper">
-
+<div id="templatemo_main_wrapper">
+    <div id="templatemo_content_wrapper">
+        <div id="templatemo_content">
             {% block content %}
             {% endblock %}
+        </div>
 
-            {% include 'mainapp/includes/sidebar_one.html' %}
-            {% include 'mainapp/includes/sidebar_two.html' %}
+        {% include 'mainapp/includes/sidebar_one.html' %}
+        {% include 'mainapp/includes/sidebar_two.html' %}
 
-            <div class="cleaner"></div>
-        </div> <!-- end of content wrapper -->
-    </div>
+        <div class="cleaner"></div>
+    </div> <!-- end of content wrapper -->
+</div>
 
-    {% include 'mainapp/includes/inc_footer.html' %}
+{% include 'mainapp/includes/inc_footer.html' %}
 
-    {% block js %}
-    {% endblock %}
+{% block js %}
+{% endblock %}
 </body>
 </html>

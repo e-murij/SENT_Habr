@@ -2,18 +2,24 @@
 
 {% block content %}
 
-<form action="{% url 'auth:login' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">
-        Войти
-    </button>
-    <button >
-        <a href="{% url 'auth:register' %}">
-            Зарегистрироваться
-        </a>
-    </button>
-</form>
+
+
+
+        <form action="{% url 'auth:login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                Войти
+            </button>
+            <button>
+                <a href="{% url 'auth:register' %}">
+                    Зарегистрироваться
+                </a>
+            </button>
+        </form>
+
+
+
 
 
 {% endblock %}
