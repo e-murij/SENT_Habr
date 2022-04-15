@@ -2,6 +2,23 @@
 
 {% block content %}
 
-<h1> Article create  </h1>
+    <h1> Article create </h1>
+
+    <form action="/article/create/" method="post">
+        {% csrf_token %}
+
+        <label for="tags">Tags: </label>
+        <input id="tags" type="text" name="tags" value="{{ tags }}">
+        <input type="submit" value="OK">
+        <br>
+        <label for="section">Section: </label>
+        <input id="section" type="text" name="section" value="{{ section }}">
+        <input type="submit" value="OK">
+        <br>
+        <label for="content">Tags: </label>
+        <input id="content" type="text" name="content" value="{{ content }}">
+        <input type="submit" value="OK">
+        <br>
+    </form>
 
 {% endblock %}
