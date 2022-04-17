@@ -69,6 +69,10 @@ cite span { color: #fff; }
 .button a:hover {
 	text-decoration: underline;
 }
+.btn-primary {
+	border-color: #1bafd5;
+	background-color:#1bafd5
+}
 
 .templatemo_list { margin: 0; padding: 0; list-style: none; }
 .templatemo_list li { margin: 0; padding: 0; }
