@@ -1,25 +1,15 @@
 {% extends 'mainapp/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
+    <form action="{% url 'auth:login' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-
-
-        <form action="{% url 'auth:login' %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">
-                Войти
-            </button>
-            <button>
-                <a href="{% url 'auth:register' %}">
-                    Зарегистрироваться
-                </a>
-            </button>
-        </form>
-
-
-
-
+        <button type="submit" class="btn btn-primary">Войти</button>
+        <button type="submit" class="btn btn-primary"><a href="{% url 'auth:register' %}"
+                                                         style="color: #FFFFFF; text-decoration:none">Зарегистрироваться</a>
+        </button>
+    </form>
 
 {% endblock %}
