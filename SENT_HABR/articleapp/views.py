@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView
 from articleapp.models import Article
 
@@ -35,3 +36,8 @@ class ArticleCreateView(CreateView):
         context = super(ArticleCreateView, self).get_context_data(**kwargs)
         context['form_class'] = ArticleCreateForm
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('auth:login')
+        return super(ArticleCreateView, self).dispatch(request, *args, **kwargs)
