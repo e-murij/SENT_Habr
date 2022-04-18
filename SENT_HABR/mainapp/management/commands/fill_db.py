@@ -32,5 +32,5 @@ class Command(BaseCommand):
 
         Article.objects.all().delete()
 
-        articles = mixer.cycle(40).blend(Article, section=mixer.SELECT, author=mixer.SELECT, is_published=True)
+        articles = mixer.cycle(15).blend(Article, section=mixer.SELECT, author=mixer.SELECT, is_published=True)
         User.objects.create_superuser(username='admin', password='admin', first_name='admin')
