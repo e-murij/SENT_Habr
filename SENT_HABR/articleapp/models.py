@@ -30,6 +30,10 @@ class Article(TimeStampMixin):
         on_delete=models.SET_NULL,
         verbose_name='author',
     )
+    title = models.CharField(
+        verbose_name='title',
+        max_length=128,
+    )
     tags = models.ManyToManyField(
         Tag,
         verbose_name='tags',

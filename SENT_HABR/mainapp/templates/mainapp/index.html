@@ -3,45 +3,30 @@
 
 {% block content %}
 
+     {% for article in article_list %}
+            <div class="post_section"><span class="bottom"></span>
 
-    	<div class="post_section"><span class="bottom"></span>
+                <span class="comment"><a href="blog_post.html">65</a></span>
 
-        	<span class="comment"><a href="blog_post.html">65</a></span>
+                <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
 
-            <h2><a href="blog_post.html">Aliquam lorem ante dapibus</a></h2>
+                <strong>Date:</strong> {{ article.updated_at }}|
+                <strong>Author:</strong> {{article.author.username}}
+                <div class="cleaner_h40"></div>
+                <p> {{ article.content }} </p>
 
-          	<strong>Date:</strong> 25 August 2048 | <strong>Author:</strong> Michael
-
-			<a href="#"><img src="static/mainapp/images/templatemo_image_01.jpg" alt="image 1" /></a>
-
-            <p><a href="" target="_parent">TemplateMo.com</a> provides <a href="" target="_parent">free css templates</a> for your  static or dynamic websites. All <a href="" target="_parent">web templates</a> are absolutely free to download, modify and apply for your websites without restrictions. Validate <a href="" rel="nofollow">XHTML</a> &amp; <a href="" rel="nofollow">CSS</a>.</p>
-
-          <div class="cleaner"></div>
-            <div class="category">Tags: <a href="#">Freebies</a>, <a href="#">Templates</a></div> <div class="button float_r"><a href="blog_post.html" class="more">Read more</a></div>
-			<div class="cleaner"></div>
-
-        </div>
-
-
-        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
-
-
-  <div class="post_section"><span class="bottom"></span>
-
-        	<span class="comment"><a href="blog_post.html">45</a></span>
-
-          	<h2><a href="blog_post.html">Lorem ipsum dolor sit amet</a></h2>
-
-          	<strong>Date:</strong> 24 August 2048 | <strong>Author:</strong> John
-        	<a href="#"><img src="static/mainapp/images/templatemo_image_02.jpg" alt="image 2" /></a>
-
-        <p>Credits go to <a href="" target="_blank">free photos</a> and <a href="" target="_blank">Smashing Magazine</a>. Ut nec vestibulum odio. Vivamus vitae nibh eu sem malesuada rutrum et sit amet magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent aliquam velit a magna sodales quis elementum ipsum auctor. Ut at metus leo, et dictum sem.</p>
-
-             <div class="cleaner"></div>
-            <div class="category">Tags: <a href="#">Freebies</a>, <a href="#">Templates</a></div> <div class="button float_r"><a href="blog_post.html" class="more">Read more</a></div>
-			<div class="cleaner"></div>
-
-      </div>
-
+                <div class="cleaner"></div>
+                <div class="category"> Tags:
+                    {% for tag in article.tags.all %}
+                        {{tag.name}} |
+                    {% endfor %}
+                </div>
+                <div class="button float_r">
+                    <a href="{% url 'articleapp:detail' article.pk %}" class="more">Read more</a>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+    {% endfor %}
 
 {% endblock %}
