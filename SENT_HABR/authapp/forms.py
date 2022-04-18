@@ -12,11 +12,11 @@ class UserRegisterForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password1'}))
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password2'}))
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'name': 'email'}))
-    avatar = forms.FileField(
-        widget=forms.FileInput(attrs={'class': 'form-control', 'name': 'avatar',
-                                      'style': "border-color: #1bafd5"}))
+    email = forms.EmailField(max_length=200,
+                             widget=forms.EmailInput(attrs={'class': 'form-control', 'name': 'email'}))
+    avatar = forms.FileField(required=False,
+                             widget=forms.FileInput(attrs={'class': 'form-control', 'name': 'avatar',
+                                                           'style': "border-color: #1bafd5"}))
 
     class Meta:
         model = User
