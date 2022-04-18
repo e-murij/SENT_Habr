@@ -131,3 +131,4 @@ dmypy.json
 .idea/
 db.sqlite3
 .vscode/
+users_avatars
