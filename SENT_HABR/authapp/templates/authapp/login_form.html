@@ -1,25 +1,17 @@
 {% extends 'mainapp/base.html' %}
 
 {% block content %}
-
-
-
-
+    <div class="mb-3">
         <form action="{% url 'auth:login' %}" method="post">
+
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">
-                Войти
-            </button>
-            <button>
-                <a href="{% url 'auth:register' %}">
-                    Зарегистрироваться
-                </a>
-            </button>
+
+            <button type="submit" class="btn btn-primary">Войти</button>
+
+            <a href="{% url 'auth:register' %}"  class="btn btn-primary" style="color: #FFFFFF">Зарегистрироваться</a>
         </form>
 
 
-
-
-
+    </div>
 {% endblock %}
