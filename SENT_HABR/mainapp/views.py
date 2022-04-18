@@ -7,7 +7,7 @@ class IndexListView(ListView):
     model = Article
 
     def get_queryset(self):
-        return Article.objects.filter(is_active=True, is_published=True).order_by('updated_at')[:10]
+        return Article.objects.filter(is_active=True, is_published=True).order_by('-updated_at')[:10]
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
@@ -18,5 +18,3 @@ class IndexListView(ListView):
 class SectionListView(ListView):
     template_name = 'mainapp/index.html'
     model = Article
-
-
