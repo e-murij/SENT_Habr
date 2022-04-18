@@ -4,6 +4,20 @@ from authapp.models import User
 
 
 class UserRegisterForm(UserCreationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'first_name'}))
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password1'}))
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password2'}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'name': 'email'}))
+    avatar = forms.FileField(
+        widget=forms.FileInput(attrs={'class': 'form-control', 'name': 'avatar',
+                                      'style': "border-color: #1bafd5"}))
+
     class Meta:
         model = User
         fields = ('username', 'first_name', 'password1', 'password2', 'email', 'avatar')
@@ -18,7 +32,7 @@ class UserAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username', 'placeholder': 'Username'}))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'username', 'placeholder': 'Password'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password', 'placeholder': 'Password'}))
 
     class Meta:
         model = User
