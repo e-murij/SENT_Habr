@@ -1,5 +1,6 @@
 from django.views.generic import ListView
 from articleapp.models import Article
+from mainapp.services import get_all_articles
 
 
 class IndexListView(ListView):
@@ -7,7 +8,7 @@ class IndexListView(ListView):
     model = Article
 
     def get_queryset(self):
-        return Article.objects.filter(is_active=True, is_published=True).order_by('-updated_at')[:10]
+        return get_all_articles(super(IndexListView, self).get_queryset())
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)

@@ -53,3 +53,4 @@ class Article(TimeStampMixin):
 
     class Meta:
         db_table = "articles"
+        ordering = ("-updated_at", )
