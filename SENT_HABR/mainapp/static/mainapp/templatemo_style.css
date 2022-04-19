@@ -173,9 +173,10 @@ cite span {
     border-color: #1bafd5;
     background-color: #1bafd5
 }
-.btn-primary:hover {
+
+.btn-primary:hover, .btn-primary:active {
     border-color: #12768e;
-    background-color: #12768e
+    background-color: #12768e;
 }
 
 
