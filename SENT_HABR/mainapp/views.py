@@ -8,7 +8,8 @@ class IndexListView(ListView):
     model = Article
 
     def get_queryset(self):
-        return get_all_articles(super(IndexListView, self).get_queryset())
+        queryset = super(IndexListView, self).get_queryset()
+        return get_all_articles(queryset)
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
