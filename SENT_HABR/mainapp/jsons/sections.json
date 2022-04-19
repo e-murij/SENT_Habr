@@ -1,17 +1,22 @@
 [
   {
-    "name": "Дизайн"
+    "name": "Дизайн",
+    "slug": "design"
   },
   {
-    "name": "Веб-разработка"
+    "name": "Веб-разработка",
+    "slug": "web_development"
   },
   {
-    "name": "Мобильная разработка"
+    "name": "Мобильная разработка",
+    "slug": "mobile_development"
   },
   {
-    "name": "Маркетинг"
+    "name": "Маркетинг",
+    "slug": "marketing"
   },
     {
-    "name": "Помощь"
+    "name": "Помощь",
+    "slug": "help"
   }
 ]

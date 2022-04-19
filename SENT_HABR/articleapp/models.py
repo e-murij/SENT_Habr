@@ -8,6 +8,15 @@ class Tag(TimeStampMixin):
         verbose_name='tag',
         max_length=128,
     )
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        verbose_name="URL",
+    )
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = "tags"
@@ -18,6 +27,15 @@ class Section(TimeStampMixin):
         verbose_name='section',
         max_length=128,
     )
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        verbose_name="URL",
+    )
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = "sections"
@@ -51,6 +69,9 @@ class Article(TimeStampMixin):
     is_active = models.BooleanField(default=True)
     is_published = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = "articles"
-        ordering = ("-updated_at", )
+        ordering = ("-updated_at",)
