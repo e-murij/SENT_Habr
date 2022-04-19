@@ -13,7 +13,7 @@ class IndexListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
-        context['title'] = 'Все статьи'
+        context['title'] = 'all_articles'
         return context
 
 
