@@ -303,9 +303,9 @@ input[type=file]::file-selector-button:hover {
 #templatemo_menu ul li a {
     float: left;
     display: block;
-    width: 100px;
+    width: 150px;
     height: 26px;
-    margin: 0 20px 0 0;
+    margin: 0 5px 0 0;
     padding: 5px 0 0 0;
     font-size: 12px;
     text-align: center;
