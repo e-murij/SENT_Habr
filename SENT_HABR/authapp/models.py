@@ -15,6 +15,9 @@ class TimeStampMixin(models.Model):
 class User(AbstractUser, TimeStampMixin):
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
 
+    def __str__(self):
+        return self.username
+
     class Meta:
         db_table = "users"
 

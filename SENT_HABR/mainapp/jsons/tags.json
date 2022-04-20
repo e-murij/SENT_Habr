@@ -1,23 +1,30 @@
 [
   {
-    "name": "Инженерные системы"
+    "name": "Инженерные системы",
+    "slug": "engineering_systems"
   },
   {
-    "name": "Научно-популярное"
+    "name": "Научно-популярное",
+    "slug": "popular_science"
   },
   {
-    "name": "Экология"
+    "name": "Экология",
+    "slug": "ecology"
   },
   {
-    "name": "IT-инфраструктура"
+    "name": "IT-инфраструктура",
+    "slug": "it_infrastructure"
   },
   {
-    "name": "Мессенджеры"
+    "name": "Мессенджеры",
+    "slug": "messengers"
   },
   {
-    "name": "Звук"
+    "name": "Звук",
+    "slug": "sound"
   },
   {
-    "name": "DevOps"
+    "name": "DevOps",
+    "slug": "devops"
   }
 ]

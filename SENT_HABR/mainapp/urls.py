@@ -4,7 +4,7 @@ from .views import IndexListView,SectionListView
 
 urlpatterns = [
     path('', IndexListView.as_view(), name='index'),
-    path('<int:pk>/', SectionListView.as_view(), name='section'),
+    path('<slug:section_slug>/', SectionListView.as_view(), name='section'),
 
 
     path('auth/', include('authapp.urls', namespace='auth'), name='auth'),

@@ -16,6 +16,7 @@
                 <p> {{ article.content }} </p>
 
                 <div class="cleaner"></div>
+                <div class="category"> Section: {{article.section.name}} </div>
                 <div class="category"> Tags:
                     {% for tag in article.tags.all %}
                         {{tag.name}} |
