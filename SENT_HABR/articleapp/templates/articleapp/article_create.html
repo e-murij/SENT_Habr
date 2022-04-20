@@ -7,7 +7,7 @@
 
     <form action="{% url 'article:create' %}" method="post">
         {% csrf_token %}
-
+        {{ form_class.media }}
         {{ form_class.as_p }}
         <input class="form-control" type="submit" value="Save">
     </form>
