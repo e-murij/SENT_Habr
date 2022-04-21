@@ -1,6 +1,6 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
-from django.forms.widgets import CheckboxSelectMultiple
+from django.forms.widgets import CheckboxSelectMultiple, CheckboxInput
 
 from .models import Article, Tag
 
@@ -19,3 +19,4 @@ class ArticleCreateForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
         self.fields["tags"].widget = CheckboxSelectMultiple()
         self.fields["tags"].queryset = Tag.objects.all()
+        self.fields["is_published"].widget = CheckboxInput()
