@@ -22,9 +22,6 @@ class User(AbstractUser, TimeStampMixin):
     class Meta:
         db_table = "users"
 
-    def get_absolute_url(self):
-        return reverse('auth:edit_user/', kwargs={'pk': self.pk})
-
 
 class UserProfile(models.Model):
     MALE = 'M'
@@ -66,9 +63,6 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
-
-    def get_absolute_url(self):
-        return reverse('auth:edit_profile/', kwargs={'pk': self.pk})
 
     class Meta:
         db_table = "user_profiles"
