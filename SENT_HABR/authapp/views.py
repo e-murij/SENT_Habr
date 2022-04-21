@@ -1,10 +1,12 @@
 from django.contrib.auth import login, logout
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, FormView
-from authapp.forms import UserRegisterForm, UserAuthenticationForm
-from authapp.models import User
+from django.views.generic import ListView, FormView, UpdateView
+from authapp.forms import UserRegisterForm, UserAuthenticationForm, UpdateProfileForm, UpdateUserForm
+from authapp.models import User, UserProfile
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class LoginFormView(FormView):
@@ -26,7 +28,7 @@ class LoginFormView(FormView):
 
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
-    success_url = reverse_lazy('auth:edit')
+    success_url = reverse_lazy('auth:login')
     template_name = "authapp/register_form.html"
 
     def form_valid(self, form):
@@ -46,6 +48,48 @@ class LogoutView(View):
         return HttpResponseRedirect('/')
 
 
-class Edit(ListView):  # UpdateView
-    template_name = 'authapp/edit_form.html'
+class EditProfile(LoginRequiredMixin, UpdateView):
+    login_url = 'auth:login'
+    form_class = UpdateProfileForm
+    template_name = 'authapp/edit_profile.html'
+    # success_url = reverse_lazy('auth:edit_profile')
+    model = UserProfile
+
+    def form_valid(self, form):
+        form.save()
+        return super(EditProfile, self).form_valid(form)
+
+    def get_context_data(self):
+        context = super(EditProfile, self).get_context_data()
+        title = 'Edit Profile'
+        context.update({'title': title})
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('auth:edit_profile', kwargs={'pk': self.kwargs['pk']})
+
+    # def get_object(self, *args, **kwargs):
+    #     user = get_object_or_404(User, pk=self.kwargs['pk'])
+    #
+    #     return user.userprofile
+
+
+class EditUser(LoginRequiredMixin, UpdateView):
+    login_url = 'auth:login'
+    form_class = UpdateUserForm
+    # success_url = reverse_lazy('auth:edit_user')
+    template_name = 'authapp/edit_user.html'
     model = User
+
+    def form_valid(self, form):
+        form.save()
+        return super(EditUser, self).form_valid(form)
+
+    def get_context_data(self):
+        context = super(EditUser, self).get_context_data()
+        title = 'Edit User'
+        context.update({'title': title})
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('auth:edit_user', kwargs={'pk': self.kwargs['pk']})

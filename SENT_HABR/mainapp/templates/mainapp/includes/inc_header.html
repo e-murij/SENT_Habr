@@ -12,6 +12,8 @@
         {% if user.is_authenticated %}
         <div id="templatemo_rss">
             <a href="{% url 'auth:logout' %}" target="_parent">{{ user.first_name|default:'Пользователь' }}<br/><span>Выйти</span></a>
+            <a href="{% url 'auth:edit_user' user.pk %}" target="_parent"><br/><span>Edit User</span></a>
+            <a href="{% url 'auth:edit_profile' user.pk %}" target="_parent"><br/><span>Edit Profile</span></a>
         </div>
         {% else %}
         <div id="templatemo_rss">

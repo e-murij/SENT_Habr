@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
-from authapp.models import User
+from authapp.models import User, UserProfile
 
 
 class UserRegisterForm(UserCreationForm):
@@ -42,3 +42,29 @@ class UserAuthenticationForm(AuthenticationForm):
     #     super(UserRegisterForm, self).__init__(*args, **kwargs)
     #     for field in self.fields.items():
     #         field.widget.attrs['class'] = 'form-control'
+
+
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'first_name'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+    avatar = forms.FileField(required=False,
+                             widget=forms.FileInput(attrs={'class': 'form-control', 'name': 'avatar',
+                                                           'style': "border-color: #1bafd5"}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'email', 'avatar']
+
+
+class UpdateProfileForm(forms.ModelForm):
+    about_me = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    gender = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': 'form-check-input', 'type': 'radio'}))
+    birthday = forms.TimeField(widget=forms.SelectDateWidget(attrs={'type': 'date'}))
+
+    class Meta:
+        model = UserProfile
+        fields = ['gender', 'birthday', 'about_me']
