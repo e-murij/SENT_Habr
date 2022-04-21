@@ -1,8 +1,9 @@
-from django.views.generic import ListView
+from django.views.generic import DetailView
 
 from authapp.models import User
 
 
-class PersonalDetailView(ListView):  # DetailView
+class PersonalDetailView(DetailView):
     template_name = 'persaccapp/personal_page.html'
     model = User
+
