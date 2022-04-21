@@ -24,7 +24,7 @@ class ArticleDeleteView(ListView):  # DeleteView
 class ArticleCreateView(CreateView):
     template_name = 'articleapp/article_create.html'
     form_class = ArticleCreateForm
-    success_url = '/'   # todo Change to redirect
+    success_url = '/'  # todo Change to redirect
 
     def form_valid(self, form):
         self.object = form.save()
@@ -35,6 +35,7 @@ class ArticleCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(ArticleCreateView, self).get_context_data(**kwargs)
         context['form_class'] = ArticleCreateForm
+        context['title'] = 'create article '
         return context
 
     def dispatch(self, request, *args, **kwargs):
