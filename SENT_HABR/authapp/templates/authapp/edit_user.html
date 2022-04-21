@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="mb-3">
-    <h1>Edit User {{user.first_name}}</h1>
+        <h2>Edit User {{user.first_name}}</h2>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}

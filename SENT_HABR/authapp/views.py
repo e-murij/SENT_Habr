@@ -59,8 +59,8 @@ class EditProfile(LoginRequiredMixin, UpdateView):
         form.save()
         return super(EditProfile, self).form_valid(form)
 
-    def get_context_data(self):
-        context = super(EditProfile, self).get_context_data()
+    def get_context_data(self, **kwargs):
+        context = super(EditProfile, self).get_context_data(**kwargs)
         title = 'Edit Profile'
         context.update({'title': title})
         return context
@@ -85,8 +85,8 @@ class EditUser(LoginRequiredMixin, UpdateView):
         form.save()
         return super(EditUser, self).form_valid(form)
 
-    def get_context_data(self):
-        context = super(EditUser, self).get_context_data()
+    def get_context_data(self, **kwargs):
+        context = super(EditUser, self).get_context_data(**kwargs)
         title = 'Edit User'
         context.update({'title': title})
         return context

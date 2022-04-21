@@ -62,8 +62,9 @@ class UpdateUserForm(forms.ModelForm):
 
 class UpdateProfileForm(forms.ModelForm):
     about_me = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    gender = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': 'form-check-input', 'type': 'radio'}))
-    birthday = forms.TimeField(widget=forms.SelectDateWidget(attrs={'type': 'date'}))
+    gender = forms.ChoiceField(required=False, widget=forms.RadioSelect,
+                               choices=UserProfile.GENDER_CHOICES)
+    birthday = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}))
 
     class Meta:
         model = UserProfile

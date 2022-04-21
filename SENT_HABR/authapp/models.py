@@ -33,6 +33,7 @@ class UserProfile(models.Model):
         (MALE, 'M'),
         (FEMALE, 'Ж'),
     )
+
     user = models.OneToOneField(
         User,
         unique=True,
