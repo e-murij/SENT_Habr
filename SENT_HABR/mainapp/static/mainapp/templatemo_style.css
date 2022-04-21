@@ -173,9 +173,10 @@ cite span {
     border-color: #1bafd5;
     background-color: #1bafd5
 }
-.btn-primary:hover {
+
+.btn-primary:hover, .btn-primary:active {
     border-color: #12768e;
-    background-color: #12768e
+    background-color: #12768e;
 }
 
 
@@ -302,9 +303,9 @@ input[type=file]::file-selector-button:hover {
 #templatemo_menu ul li a {
     float: left;
     display: block;
-    width: 100px;
+    width: 150px;
     height: 26px;
-    margin: 0 20px 0 0;
+    margin: 0 5px 0 0;
     padding: 5px 0 0 0;
     font-size: 12px;
     text-align: center;
