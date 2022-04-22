@@ -1,8 +1,24 @@
 {% extends 'mainapp/base.html' %}
-
+{% load media_users %}
 
 {% block content %}
-
-<h1> Personal Page </h1>
-
+    <div class="service_box">
+        <h4>{{ object.first_name }} {{ object.last_name }} ({{ object.username }})</h4>
+        <div class="left">
+            <img src="{{ object.avatar | user_avatar}}" alt="avatar" />
+        </div>
+        <div class="right">
+            <p> {{ object.userprofile.about_me}} </p>
+        </div>
+        <div class="cleaner_h40"></div>
+        <ul> Пол:  {% if object.userprofile.gender == 'M' %} Мужской {% else %} Женский {% endif %}</ul>
+        <ul> Дата рождения: {{ object.userprofile.birthday | date:"d.m.Y"}}</ul>
+        <ul> Email: {{ object.email }}</ul>
+        <ul> Дата регистрации: {{object.created_at | date:"d.m.Y"}} </ul>
+        <div class="cleaner_h40"></div>
+        {% if user.is_authenticated and user.pk == object.pk %}
+             <a href="{% url 'auth:edit' %}"  class="btn btn-primary" style="color: #FFFFFF">Редактировать профиль</a>
+             <a href="{% url 'auth:edit' %}"  class="btn btn-primary" style="color: #FFFFFF">Мои статьи</a>
+        {% endif %}
+    </div>
 {% endblock %}
