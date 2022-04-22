@@ -179,6 +179,19 @@ cite span {
     background-color: #12768e;
 }
 
+/*dropdown menu*/
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
+    color: #ffa215;
+    background-color: #12768e;
+    border-color: #12768e;
+}
+
+.dropdown-menu-dark {
+    color: #dee2e6;
+    background-color: #12768e;
+    border-color: rgba(0, 0, 0, .15);
+}
+/*end dropdown menu*/
 
 .form-control {
     border-color: #1bafd5;
@@ -254,6 +267,11 @@ input[type=file]::file-selector-button:hover {
     letter-spacing: 2px;
 }
 
+#templatemo_rss {
+    float: right;
+    padding: 25px 0 0;
+}
+
 #templatemo_header #templatemo_rss a {
     float: right;
     display: block;
@@ -265,7 +283,7 @@ input[type=file]::file-selector-button:hover {
     font-size: 16px;
     font-weight: bold;
     text-decoration: none;
-    background: url(images/templatemo_rss.png) left center no-repeat;
+    /*background: url(images/templatemo_rss.png) left center no-repeat;*/
 }
 
 #templatemo_header #templatemo_rss a:hover {

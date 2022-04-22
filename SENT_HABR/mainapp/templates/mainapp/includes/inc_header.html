@@ -10,13 +10,29 @@
             </h1>
         </div>
         {% if user.is_authenticated %}
-        <div id="templatemo_rss">
-            <a href="{% url 'auth:logout' %}" target="_parent">{{ user.first_name|default:'Пользователь' }}<br/><span>Выйти</span></a>
-        </div>
+            <div id="templatemo_rss">
+{#                <a href="{% url 'auth:logout' %}"#}
+{#                   target="_parent">{{ user.first_name|default:'Пользователь' }}<br/><span>Выйти</span></a>#}
+{#                <a href="{% url 'auth:edit_user' user.pk %}" target="_parent"><br/><span>Edit User</span></a>#}
+{#                <a href="{% url 'auth:edit_profile' user.pk %}" target="_parent"><br/><span>Edit Profile</span></a>#}
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.first_name|default:'Пользователь' }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item active" href="{% url 'auth:edit_user' user.pk %}">Edit User</a></li>
+                    <li><a class="dropdown-item" href="{% url 'auth:edit_profile' user.pk %}">Edit Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+{#                    <li><a class="dropdown-item" href="#">Separated link</a></li>#}
+                </ul>
+            </div>
         {% else %}
-        <div id="templatemo_rss">
-            <a href="{% url 'auth:login' %}" target="_parent">Войти</a>
-        </div>
+            <div id="templatemo_rss">
+                <a href="{% url 'auth:login' %}" target="_parent">Войти</a>
+            </div>
         {% endif %}
 
     </div> <!-- end of header -->
@@ -28,11 +44,11 @@
                    class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Все</a>
             </li>
             {% for link in sections_menu %}
-            <li>
-                <a href="{% url 'section' link.slug %}"
-                   class="{% if request.resolver_match.kwargs.pk == link.pk %}current{% endif %}">{{ link.name }}
-                </a>
-            </li>
+                <li>
+                    <a href="{% url 'section' link.slug %}"
+                       class="{% if request.resolver_match.kwargs.pk == link.pk %}current{% endif %}">{{ link.name }}
+                    </a>
+                </li>
             {% endfor %}
         </ul>
 
