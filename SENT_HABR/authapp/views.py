@@ -1,7 +1,8 @@
 from django.contrib.auth import login, logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, FormView, UpdateView
 from authapp.forms import UserRegisterForm, UserAuthenticationForm, UpdateProfileForm, UpdateUserForm
@@ -68,10 +69,15 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('auth:edit_profile', kwargs={'pk': self.kwargs['pk']})
 
-    # def get_object(self, *args, **kwargs):
-    #     user = get_object_or_404(User, pk=self.kwargs['pk'])
-    #
-    #     return user.userprofile
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Проверка пользователя, в случае если пользователь пытается перейти на url
+        редактирования другого пользователя - произойдет переход на публичную страничку этого пользователя
+        """
+        if kwargs['pk'] != request.user.pk:
+            return HttpResponseRedirect(reverse('account:personal_page', args=[kwargs["pk"]]))
+
+        return super(EditProfile, self).dispatch(request, *args, **kwargs)
 
 
 class EditUser(LoginRequiredMixin, UpdateView):
@@ -93,3 +99,13 @@ class EditUser(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('auth:edit_user', kwargs={'pk': self.kwargs['pk']})
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Проверка пользователя, в случае если пользователь пытается перейти на url
+        редактирования другого пользователя - произойдет переход на публичную страничку этого пользователя
+        """
+        if kwargs['pk'] != request.user.pk:
+            return HttpResponseRedirect(reverse('account:personal_page', args=[kwargs["pk"]]))
+
+        return super(EditUser, self).dispatch(request, *args, **kwargs)
