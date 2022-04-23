@@ -8,6 +8,8 @@ class UserRegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'first_name'}))
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'last_name'}))
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password1'}))
     password2 = forms.CharField(
@@ -20,12 +22,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'password1', 'password2', 'email', 'avatar')
-
-    # def __init__(self, *args, **kwargs):
-    #     super(UserRegisterForm, self).__init__(*args, **kwargs)
-    #     for field in self.fields.items():
-    #         field.widget.attrs['class'] = 'form-control'
+        fields = ('username', 'first_name', 'last_name', 'password1', 'password2', 'email', 'avatar')
 
 
 class UserAuthenticationForm(AuthenticationForm):
@@ -38,17 +35,14 @@ class UserAuthenticationForm(AuthenticationForm):
         model = User
         fields = ('username', 'password')
 
-    # def __init__(self, *args, **kwargs):
-    #     super(UserRegisterForm, self).__init__(*args, **kwargs)
-    #     for field in self.fields.items():
-    #         field.widget.attrs['class'] = 'form-control'
-
 
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100, required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'first_name'}))
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'last_name'}))
     email = forms.EmailField(required=True,
                              widget=forms.TextInput(attrs={'class': 'form-control'}))
     avatar = forms.FileField(required=False,
@@ -57,7 +51,7 @@ class UpdateUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'email', 'avatar']
+        fields = ['username', 'first_name', 'last_name', 'email', 'avatar']
 
 
 class UpdateProfileForm(forms.ModelForm):
