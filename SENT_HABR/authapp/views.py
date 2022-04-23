@@ -52,11 +52,13 @@ class LogoutView(View):
 class EditView(LoginRequiredMixin, FormView):
     user_form = UpdateUserForm
     profile_form = UpdateProfileForm
-    template_name = 'authapp/edit_user.html'
+    template_name = 'authapp/edit_form.html'
 
     def get(self, request, *args, **kwargs):
         context = {'user_form': self.user_form(instance=self.request.user),
-                   'profile_form': self.profile_form(instance=self.request.user.userprofile), 'title': 'Edit User'}
+                   'profile_form': self.profile_form(instance=self.request.user.userprofile),
+                   'title': 'Edit User'
+                   }
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
