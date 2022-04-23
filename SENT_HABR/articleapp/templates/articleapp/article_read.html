@@ -2,6 +2,6 @@
 
 {% block content %}
 
-<h1> Article read  </h1>
-
+    <h1> Article read </h1>
+    <a href="{% url 'article:edit' article_pk %}"  class="btn btn-primary" style="color: #FFFFFF">Редактировать</a>
 {% endblock %}
