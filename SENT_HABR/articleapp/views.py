@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from articleapp.models import Article
 
 from .forms import ArticleCreateForm
@@ -41,9 +41,19 @@ class ArticleEditView(UpdateView):
         return super(ArticleEditView, self).dispatch(request, *args, **kwargs)
 
 
-class ArticleDeleteView(ListView):  # DeleteView
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'articleapp/article_delete.html'
+    success_url = '/account/my_articles/'
     model = Article
+
+    def check_author(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.check_author():
+            return redirect('/')
+        return super(ArticleDeleteView, self).dispatch(request, *args, **kwargs)
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
