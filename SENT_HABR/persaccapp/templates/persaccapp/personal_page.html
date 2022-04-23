@@ -11,7 +11,12 @@
             <p> {{ object.userprofile.about_me}} </p>
         </div>
         <div class="cleaner_h40"></div>
-        <ul> Пол:  {% if object.userprofile.gender == 'M' %} Мужской {% else %} Женский {% endif %}</ul>
+        <ul> Пол:
+                {% if object.userprofile.gender == 'W' %} Женский
+                {% elif object.userprofile.gender == 'M' %} Мужской
+                {% else %} --
+                {% endif %}
+        </ul>
         <ul> Дата рождения: {{ object.userprofile.birthday | date:"d.m.Y"}}</ul>
         <ul> Email: {{ object.email }}</ul>
         <ul> Дата регистрации: {{object.created_at | date:"d.m.Y"}} </ul>
