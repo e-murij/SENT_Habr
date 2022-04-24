@@ -1,7 +1,29 @@
 {% extends 'mainapp/base.html' %}
 
-{% block content %}
 
-<h1> Article read  </h1>
+{% block content %}
+<div class="post_section"><span class="bottom"></span>
+
+    <span class="comment"><a href="blog_post.html">65</a></span>
+
+    <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}<a></h2>
+
+    <strong>Date:</strong> {{ article.updated_at }}|
+    <strong>Author:</strong> {{article.author.username}}
+
+    <div class="cleaner_40"></div>
+    <div class="category"> Section: {{article.section.name}} </div>
+    <div class="category"> Tags:
+        {% for tag in article.tags.all %}
+        {{tag.name}} |
+        {% endfor %}
+    </div>
+    <div class="cleaner"></div>
+        <p> {{object.content |safe}} </P>
+    </div>
+    {% comment %} убрать под иф и сменить на кнопку редактирования статьи {% endcomment %}
+    <div class="button float_r">
+        <a href="{% url 'articleapp:detail' article.pk %}" class="more">Редактировать</a>
+    </div>
 
 {% endblock %}
