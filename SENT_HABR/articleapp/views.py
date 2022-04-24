@@ -23,6 +23,7 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     template_name = 'articleapp/article_edit.html'
     form_class = ArticleCreateForm
+    success_url = reverse_lazy('account:my_articles')
 
     def check_author(self):
         obj = self.get_object()
