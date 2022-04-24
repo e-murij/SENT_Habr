@@ -8,4 +8,10 @@
         <input type="submit" value="Confirm"/>
     </form>
 
+    <button>
+      <a href="{% url 'articleapp:detail' object.pk %}" class="more">
+        Отмена
+      </a>
+    </button>
+
 {% endblock %}

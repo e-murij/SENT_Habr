@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from articleapp.models import Article
 
@@ -18,11 +19,10 @@ class ArticleDetailView(ListView):  # DetailView
         return context
 
 
-class ArticleEditView(UpdateView):
+class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     template_name = 'articleapp/article_edit.html'
     form_class = ArticleCreateForm
-    success_url = '/account/my_articles/'  # todo Change to redirect
 
     def check_author(self):
         obj = self.get_object()
@@ -43,7 +43,7 @@ class ArticleEditView(UpdateView):
 
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'articleapp/article_delete.html'
-    success_url = '/account/my_articles/'
+    success_url = reverse_lazy('account:my_articles')
     model = Article
 
     def check_author(self):
@@ -54,6 +54,13 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
         if not self.check_author():
             return redirect('/')
         return super(ArticleDeleteView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.is_published = False
+        self.object.save()
+        return HttpResponseRedirect(self.success_url)
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
