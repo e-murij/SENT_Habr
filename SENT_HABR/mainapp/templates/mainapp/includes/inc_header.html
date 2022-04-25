@@ -20,8 +20,8 @@
                     {{ user.first_name|default:'Пользователь' }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item active" href="{% url 'auth:edit_user' user.pk %}">Edit User</a></li>
-                    <li><a class="dropdown-item" href="{% url 'auth:edit_profile' user.pk %}">Edit Profile</a></li>
+                    <li><a class="dropdown-item active" href="{% url 'auth:edit' %}">Edit</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}">Personal Area</a></li>
                     <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a></li>
                     <li>
                         <hr class="dropdown-divider">

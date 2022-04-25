@@ -2,6 +2,16 @@
 
 {% block content %}
 
-<h1> Article delete  </h1>
+    <h1> Article delete </h1>
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm"/>
+    </form>
+
+    <button>
+      <a href="{% url 'articleapp:detail' object.pk %}" class="more">
+        Отмена
+      </a>
+    </button>
 
 {% endblock %}
