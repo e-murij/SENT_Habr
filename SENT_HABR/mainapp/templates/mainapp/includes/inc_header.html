@@ -11,27 +11,28 @@
         </div>
         {% if user.is_authenticated %}
             <div id="templatemo_rss">
-{#                <a href="{% url 'auth:logout' %}"#}
-{#                   target="_parent">{{ user.first_name|default:'Пользователь' }}<br/><span>Выйти</span></a>#}
-{#                <a href="{% url 'auth:edit_user' user.pk %}" target="_parent"><br/><span>Edit User</span></a>#}
-{#                <a href="{% url 'auth:edit_profile' user.pk %}" target="_parent"><br/><span>Edit Profile</span></a>#}
+                {#                <a href="{% url 'auth:logout' %}"#}
+                {#                   target="_parent">{{ user.first_name|default:'Пользователь' }}<br/><span>Выйти</span></a>#}
+                {#                <a href="{% url 'auth:edit_user' user.pk %}" target="_parent"><br/><span>Edit User</span></a>#}
+                {#                <a href="{% url 'auth:edit_profile' user.pk %}" target="_parent"><br/><span>Edit Profile</span></a>#}
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ user.first_name|default:'Пользователь' }}
+                {{ user.first_name|default:'Пользователь' }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item active" href="{% url 'auth:edit' %}">Edit</a></li>
-                    <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}">Personal Area</a></li>
-                    <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a></li>
+                    <li><a class="dropdown-item" href="{% url 'auth:edit' %}">Редактировать профиль</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}">Пресональная страница</a></li>
+                    <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Выход</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-{#                    <li><a class="dropdown-item" href="#">Separated link</a></li>#}
+                    {#                    <li><a class="dropdown-item" href="#">Separated link</a></li>#}
                 </ul>
             </div>
         {% else %}
             <div id="templatemo_rss">
-                <a href="{% url 'auth:login' %}" target="_parent">Войти</a>
+                {#                <a href="{% url 'auth:login' %}" target="_parent">Войти</a>#}
+                <a href="{% url 'auth:login' %}" class="btn btn-secondary">Войти</a>
             </div>
         {% endif %}
 
