@@ -174,16 +174,26 @@ cite span {
     background-color: #1bafd5
 }
 
-.btn-primary:hover, .btn-primary:active {
+.btn-primary:hover, .btn-primary:active, .btn-secondary:focus {
     border-color: #12768e;
     background-color: #12768e;
 }
 
 /*dropdown menu*/
-.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
-    color: #ffa215;
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus, btn-login {
     background-color: #12768e;
     border-color: #12768e;
+    float: right;
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding: 10px 0 10px 10px;
+    margin-top: 10px;
+    color: #ffa200;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+
 }
 
 .dropdown-menu-dark {
@@ -191,6 +201,12 @@ cite span {
     background-color: #12768e;
     border-color: rgba(0, 0, 0, .15);
 }
+
+/*.dropdown-item:active{*/
+/*    border-color: #1bafd5;*/
+/*    background-color: #1bafd5*/
+/*}*/
+
 /*end dropdown menu*/
 
 .form-control {
@@ -275,10 +291,10 @@ input[type=file]::file-selector-button:hover {
 #templatemo_header #templatemo_rss a {
     float: right;
     display: block;
-    width: 200px;
+    width: auto;
     height: 40px;
-    padding: 10px 0 10px 60px;
-    margin-top: 15px;
+    padding: 10px 20px 10px 20px;
+    margin-top: 10px;
     color: #ffa200;
     font-size: 16px;
     font-weight: bold;
@@ -286,8 +302,9 @@ input[type=file]::file-selector-button:hover {
     /*background: url(images/templatemo_rss.png) left center no-repeat;*/
 }
 
-#templatemo_header #templatemo_rss a:hover {
-    color: #fff;
+#templatemo_header #templatemo_rss a:active {
+    border-color: #1bafd5;
+    background-color: #1bafd5;
     text-decoration: none;
 }
 
