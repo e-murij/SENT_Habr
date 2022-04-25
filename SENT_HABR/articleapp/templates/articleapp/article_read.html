@@ -9,7 +9,7 @@
         <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
         
         <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i"}}|
-        <strong>Автор:</strong><a href="{% url 'account:personal_page' article.author.pk %}">{{article.author.username}}</a>
+        <strong>Автор:</strong><a href="{% url 'account:personal_page' article.author.pk %}"> {{article.author.username}}</a>
 
         <div class="cleaner_40"></div>
         <div class="category"> Раздел: {{article.section.name}} </div>
