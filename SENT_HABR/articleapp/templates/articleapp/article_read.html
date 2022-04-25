@@ -10,8 +10,9 @@
         <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
         
         <strong>Date:</strong> {{ article.updated_at }}|
-        <strong>Author:</strong><a href="{% url 'account:personal_page' user.pk %}">{{article.author.username}}</a>
-        
+        {% comment %} <strong>Author:</strong><a href="{% url 'account:personal_page' user.pk %}">{{article.author.username}}</a> {% endcomment %}
+        <strong>Author:</strong><a href="{% url 'account:personal_page' article.author.pk %}">{{article.author.username}}</a>
+
         <div class="cleaner_40"></div>
         <div class="category"> Section: {{article.section.name}} </div>
         <div class="category"> Tags:
@@ -20,15 +21,18 @@
             {% endfor %}
         </div>
         <div class="cleaner"></div>
+        <div class="cleaner_40"></div>
         <div>
             <p> {{object.content |safe}} </P>
-            </div>
-            {% if user.is_authenticated and article.author.username == user.username %}
+        </div>
             <div>    
-                    <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
-                    <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
-            </div>
-            {% endif %}
-    </div>
+               {% if user.is_authenticated and article.author.username == user.username %}
+                        <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
+                        <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
+                    </div>
+                {% endif %}
+             </div>
+        </div>
+</div>
 
 {% endblock %}
