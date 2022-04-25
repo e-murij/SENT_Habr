@@ -2,13 +2,13 @@
 
 {% block content %}
 
-    <h1> Article edit </h1>
+    <h2> Редактировать статью </h1>
 
     <form action="{% url 'article:edit' article.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form_class.media }}
         {{ form_class.as_p }}
-        <input class="form-control" type="submit" value="Update">
+        <input class="form-control" type="submit" value="Сохранить изменения">
     </form>
 
 {% endblock %}

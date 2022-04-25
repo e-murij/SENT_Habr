@@ -2,21 +2,21 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from articleapp.models import Article
 
 from .forms import ArticleCreateForm
 
 
-class ArticleDetailView(ListView):  # DetailView
+class ArticleDetailView(DetailView):  # DetailView
     template_name = 'articleapp/article_read.html'
     model = Article
 
-    def get_context_data(self, **kwargs):
-        context = super(ArticleDetailView, self).get_context_data(**kwargs)
-        context['title'] = 'Detail article'
-        context['article_pk'] = self.kwargs.get('pk')
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(ArticleDetailView, self).get_context_data(**kwargs)
+    #     context['title'] = 'Detail article'
+    #     context['article_pk'] = self.kwargs.get('pk')
+    #     return context
 
 
 class ArticleEditView(LoginRequiredMixin, UpdateView):

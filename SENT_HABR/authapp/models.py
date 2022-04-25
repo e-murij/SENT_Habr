@@ -39,17 +39,17 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE
     )
     birthday = models.DateField(
-        verbose_name='birthday',
+        verbose_name='Дата рождения',
         blank=True,
         null=True,
     )
     about_me = models.TextField(
-        verbose_name='about_me',
+        verbose_name='Обо мне',
         max_length=512,
         blank=True
     )
     gender = models.CharField(
-        verbose_name='gender',
+        verbose_name='Пол',
         max_length=1,
         choices=GENDER_CHOICES,
         blank=True

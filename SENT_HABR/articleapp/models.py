@@ -5,7 +5,7 @@ from authapp.models import TimeStampMixin, User
 
 class Tag(TimeStampMixin):
     name = models.CharField(
-        verbose_name='tag',
+        verbose_name='тэг',
         max_length=128,
     )
     slug = models.SlugField(
@@ -24,7 +24,7 @@ class Tag(TimeStampMixin):
 
 class Section(TimeStampMixin):
     name = models.CharField(
-        verbose_name='section',
+        verbose_name='раздел',
         max_length=128,
     )
     slug = models.SlugField(
@@ -46,28 +46,28 @@ class Article(TimeStampMixin):
         User,
         null=True,
         on_delete=models.SET_NULL,
-        verbose_name='author',
+        verbose_name='автор',
     )
     title = models.CharField(
-        verbose_name='title',
+        verbose_name='название',
         max_length=128,
     )
     tags = models.ManyToManyField(
         Tag,
-        verbose_name='tags',
+        verbose_name='тэги',
         null=True,
     )
     section = models.ForeignKey(
         Section,
         on_delete=models.CASCADE,
-        verbose_name='section',
+        verbose_name='раздел',
     )
     content = models.TextField(
-        verbose_name='content',
+        verbose_name='содержание',
         blank=True,
     )
     is_active = models.BooleanField(default=True)
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=False, verbose_name='опубликовать')
 
     def __str__(self):
         return self.title

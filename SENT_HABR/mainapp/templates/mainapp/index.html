@@ -10,20 +10,20 @@
 
                 <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
 
-                <strong>Date:</strong> {{ article.updated_at }}|
-                <strong>Author:</strong> {{article.author.username}}
+                <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
+                <strong>Автор:</strong> {{article.author.username}}
                 <div class="cleaner_h40"></div>
                 <p> {{ article.content|safe|truncatewords:30 }} </p>
 
                 <div class="cleaner"></div>
-                <div class="category"> Section: {{article.section.name}} </div>
-                <div class="category"> Tags:
+                <div class="category"> Раздел: {{article.section.name}} </div>
+                <div class="category"> Тэги:
                     {% for tag in article.tags.all %}
                         {{tag.name}} |
                     {% endfor %}
                 </div>
                 <div class="button float_r">
-                    <a href="{% url 'articleapp:detail' article.pk %}" class="more">Read more</a>
+                    <a href="{% url 'articleapp:detail' article.pk %}" class="more">Читать далее</a>
                 </div>
                 <div class="cleaner"></div>
             </div>
