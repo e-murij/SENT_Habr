@@ -18,7 +18,6 @@ class ArticleDetailView(DetailView):  # DetailView
     #     context['article_pk'] = self.kwargs.get('pk')
     #     return context
 
-
 class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     template_name = 'articleapp/article_edit.html'
