@@ -23,6 +23,8 @@
     </div>
     {% comment %} убрать под иф и сменить на кнопку редактирования статьи {% endcomment %}
     <div class="button float_r">
-        <a href="{% url 'articleapp:detail' article.pk %}" class="more">Редактировать</a>
+        <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
+        <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
+
     </div>
 {% endblock %}
