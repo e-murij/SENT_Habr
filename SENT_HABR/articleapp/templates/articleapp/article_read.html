@@ -10,7 +10,7 @@
         <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
         
         <strong>Date:</strong> {{ article.updated_at }}|
-        <strong>Author:</strong> {{article.author.username}}
+        <strong>Author:</strong><a href="{% url 'account:personal_page' user.pk %}">{{article.author.username}}</a>
         
         <div class="cleaner_40"></div>
         <div class="category"> Section: {{article.section.name}} </div>
