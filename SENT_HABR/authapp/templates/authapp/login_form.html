@@ -2,16 +2,13 @@
 
 {% block content %}
     <div class="mb-3">
-        <form action="{% url 'auth:login' %}" method="post">
+        <form  method="post">
 
             {% csrf_token %}
             {{ form.as_p }}
 
             <button type="submit" class="btn btn-primary">Войти</button>
-
             <a href="{% url 'auth:register' %}"  class="btn btn-primary" style="color: #FFFFFF">Зарегистрироваться</a>
         </form>
-
-
     </div>
 {% endblock %}
