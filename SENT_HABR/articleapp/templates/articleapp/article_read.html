@@ -1,8 +1,38 @@
 {% extends 'mainapp/base.html' %}
 
-{% block content %}
 
-    <h1> Article read </h1>
-    <a href="{% url 'article:edit' article_pk %}"  class="btn btn-primary" style="color: #FFFFFF">Редактировать</a>
-    <a href="{% url 'article:delete' article_pk %}"  class="btn btn-primary" style="color: #FFFFFF">Удалить</a>
+{% block content %}
+<div class="service_box">
+    <span class="bottom"></span>
+    <span class="comment">
+        <a href="blog_post.html">65</a></span>
+        
+        <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
+        
+        <strong>Date:</strong> {{ article.updated_at }}|
+        {% comment %} <strong>Author:</strong><a href="{% url 'account:personal_page' user.pk %}">{{article.author.username}}</a> {% endcomment %}
+        <strong>Author:</strong><a href="{% url 'account:personal_page' article.author.pk %}">{{article.author.username}}</a>
+
+        <div class="cleaner_40"></div>
+        <div class="category"> Section: {{article.section.name}} </div>
+        <div class="category"> Tags:
+            {% for tag in article.tags.all %}
+            {{tag.name}} |
+            {% endfor %}
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_40"></div>
+        <div>
+            <p> {{object.content |safe}} </P>
+        </div>
+            <div>    
+               {% if user.is_authenticated and article.author.username == user.username %}
+                        <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
+                        <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
+                    </div>
+                {% endif %}
+             </div>
+        </div>
+</div>
+
 {% endblock %}
