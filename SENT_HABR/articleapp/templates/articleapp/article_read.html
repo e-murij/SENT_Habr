@@ -21,7 +21,7 @@
     <div class="cleaner"></div>
         <p> {{object.content |safe}} </P>
     </div>
-    {% comment %} убрать под иф и сменить на кнопку редактирования статьи {% endcomment %}
+    {% comment %} убрать под IF редактированиt статьи {% endcomment %}
     <div class="button float_r">
         <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
         <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
