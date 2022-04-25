@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load media_users %}
+
+{% block content %}
+
+
+<table width=100%>
+  <h3> Статьи пользователя {{user.username}}: </h3>
+  <div class="cleaner_h20"></div>
+  <tbody>
+  {% for article in article_list %}
+    <tr>
+      <td> <h3> {{article.title}} </h3></td>
+      <td> <a href="{% url 'articleapp:edit' article.pk %}"  class="btn btn-primary" style="color: #FFFFFF">Редактировать</a></td>
+      <td> <a href="{% url 'articleapp:delete' article.pk %}"  class="btn btn-primary" style="color: #FFFFFF">Удалить</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div class="cleaner_h60"></div>
+<a href="{% url 'articleapp:create'%}"  class="btn btn-primary" style="color: #FFFFFF">Создать статью</a>
+
+{% endblock %}

@@ -141,6 +141,9 @@ AUTH_USER_MODEL = 'authapp.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_URL = 'auth:login'
+LOGOUT_URL = 'auth:logout'
+
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
