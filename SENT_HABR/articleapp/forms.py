@@ -6,7 +6,7 @@ from .models import Article, Tag
 
 
 class ArticleCreateForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorUploadingWidget())
+    content = forms.CharField(widget=CKEditorUploadingWidget(), label='Содержание')
 
     class Meta:
         model = Article
