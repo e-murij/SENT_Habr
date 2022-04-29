@@ -30,17 +30,16 @@
             {% endif %}
 
 
-            {% if user.is_authenticated%}
-                    <h3>Комментарии</h3>
-                    <form action="{% url 'comment:create' article.id %}" method="post" id="formComment">
-                        {% csrf_token %}
-                        <input type="hidden" name="parent" id="contactparent" value="">
-                        <textarea class="form-control" name="content"
-                                  id="contactcomment" required="">
-                        </textarea>
-                        <button type="submit" class="btn-primary" style="margin-top:20px"> Отправить </button>
-                    </form>
-            {% endif %}
+            <h3>Комментарии</h3>
+            <form action="{% url 'comment:create' article.id %}" method="post" id="formComment">
+                {% csrf_token %}
+                <input type="hidden" name="parent" id="contactparent" value="">
+                <textarea class="form-control" name="content"
+                          id="contactcomment" required="">
+                </textarea>
+                <button type="submit" class="btn-primary" style="margin-top:20px"> Отправить </button>
+            </form>
+
 
             {% for comment in comments %}
                 <hr>
@@ -50,9 +49,7 @@
                         {{ comment.updated_at |date:" d.m.Y H:i"}}
                     </p>
                     <p> {{ comment.content }} </p>
-                    {% if user.is_authenticated%}
-                        <a href="#formComment" onclick="addComment('{{ comment.user.username }}', '{{ comment.id }}')">Ответить</a>
-                    {% endif %}
+                    <a href="#formComment" onclick="addComment('{{ comment.user.username }}', '{{ comment.id }}')">Ответить</a>
                 <hr>
 
                 {% for com in comment.comment_set.all %}

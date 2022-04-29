@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.views import View
 
 from articleapp.models import Article
 from commentapp.forms import CommentForm
 
 
-class CommentCreate(View):
+class CommentCreate(LoginRequiredMixin, View):
     def post(self, request, pk):
         form = CommentForm(request.POST)
         article = Article.objects.get(id=pk)
