@@ -21,6 +21,7 @@ class IndexListView(ListView):
 class SectionListView(ListView):
     template_name = 'mainapp/index.html'
     model = Article
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = super(SectionListView, self).get_queryset()
