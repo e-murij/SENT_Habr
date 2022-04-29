@@ -1,36 +1,77 @@
 {% extends 'mainapp/base.html' %}
-
+{% load media_users %}
 
 {% block content %}
-<div class="service_box">
-<!--    <span class="bottom"></span>-->
-<!--    <span class="comment">-->
-<!--        <a href="blog_post.html">65</a></span>-->
-        <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
-        
-        <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i"}}|
-        <strong>Автор:</strong><a href="{% url 'account:personal_page' article.author.pk %}"> {{article.author.username}}</a>
+    <div class="service_box">
 
-        <div class="cleaner_40"></div>
-        <div class="category"> Раздел: {{article.section.name}} </div>
-        <div class="category"> Тэги:
-            {% for tag in article.tags.all %}
-            {{tag.name}} |
+            <span class="comment"><a href="#formComment">{{ article.comment_set.count }}</a></span>
+
+            <h2>{{article.title}}</h2>
+
+            <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i"}}|
+            <strong>Автор:</strong><a href="{% url 'account:personal_page' article.author.pk %}"> {{article.author.username}}</a>
+
+            <div class="cleaner_40"></div>
+            <div class="category"> Раздел: {{article.section.name}} </div>
+            <div class="category"> Тэги:
+                {% for tag in article.tags.all %}
+                {{tag.name}} |
+                {% endfor %}
+            </div>
+            <div class="cleaner"></div>
+            <div class="cleaner_40"></div>
+            <div>
+                <p> {{object.content |safe}} </p>
+            </div>
+
+            {% if user.is_authenticated and article.author.username == user.username %}
+                    <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
+                    <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
+            {% endif %}
+
+
+            {% if user.is_authenticated%}
+                    <h3>Комментарии</h3>
+                    <form action="{% url 'comment:create' article.id %}" method="post" id="formComment">
+                        {% csrf_token %}
+                        <input type="hidden" name="parent" id="contactparent" value="">
+                        <textarea class="form-control" name="content"
+                                  id="contactcomment" required="">
+                        </textarea>
+                        <button type="submit" class="btn-primary" style="margin-top:20px"> Отправить </button>
+                    </form>
+            {% endif %}
+
+            {% for comment in comments %}
+                <hr>
+                    <p>
+                        <img src="{{comment.user.avatar | user_avatar}}" alt="avatar" height="30"/>
+                        {{ comment.user.username }}
+                        {{ comment.updated_at |date:" d.m.Y H:i"}}
+                    </p>
+                    <p> {{ comment.content }} </p>
+                    {% if user.is_authenticated%}
+                        <a href="#formComment" onclick="addComment('{{ comment.user.username }}', '{{ comment.id }}')">Ответить</a>
+                    {% endif %}
+                <hr>
+
+                {% for com in comment.comment_set.all %}
+                    <p style="position: relative;  right: -100px;">
+                        <img src="{{com.user.avatar | user_avatar}}" alt="avatar" height="30"/>
+                        {{ com.user.username }}
+                        {{ com.updated_at |date:" d.m.Y H:i"}}
+                        <p style="position: relative;  right: -100px;"> {{ com.content }} </p>
+                    </p>
+                {% endfor %}
+                <hr>
             {% endfor %}
-        </div>
-        <div class="cleaner"></div>
-        <div class="cleaner_40"></div>
-        <div>
-            <p> {{object.content |safe}} </p>
-        </div>
-            <div>    
-               {% if user.is_authenticated and article.author.username == user.username %}
-                        <a href="{% url 'article:edit' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Редактировать</a>
-                        <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
-                    </div>
-                {% endif %}
-             </div>
-        </div>
-</div>
+    </div>
+
+    <script>
+        function addComment(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
+    </script>
 
 {% endblock %}

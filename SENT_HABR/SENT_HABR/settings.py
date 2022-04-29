@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'articleapp',
     'persaccapp',
     'authapp',
+    'commentapp',
 
 ]
 
