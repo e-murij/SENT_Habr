@@ -179,35 +179,6 @@ cite span {
     background-color: #12768e;
 }
 
-/*dropdown menu*/
-.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus, btn-login {
-    background-color: #12768e;
-    border-color: #12768e;
-    float: right;
-    display: block;
-    width: 200px;
-    height: 40px;
-    padding: 10px 0 10px 10px;
-    margin-top: 10px;
-    color: #ffa200;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-
-}
-
-.dropdown-menu-dark {
-    color: #dee2e6;
-    background-color: #12768e;
-    border-color: rgba(0, 0, 0, .15);
-}
-
-/*.dropdown-item:active{*/
-/*    border-color: #1bafd5;*/
-/*    background-color: #1bafd5*/
-/*}*/
-
-/*end dropdown menu*/
 
 .form-control {
     border-color: #1bafd5;
@@ -239,6 +210,54 @@ input[type=file]::file-selector-button:hover {
 }
 
 /* header */
+/*dropdown menu*/
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus, .btn-secondary:active:focus, btn-login {
+    background-color: #12768e;
+    border-color: #12768e;
+    float: right;
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding: 10px 0 10px 20px;
+    margin-top: 10px;
+    color: #ffa200;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: left;
+    box-shadow: none;
+}
+
+.dropdown-menu-dark {
+    color: #dee2e6;
+    background-color: #12768e;
+    /*border-color: rgba(0, 0, 0, .15);*/
+}
+
+
+.avatar {
+    position: relative;
+    margin: 20px 0 0 0;
+    display: block;
+    size: 25px;
+    height: 25px;
+    width: 25px;
+    object-fit:cover;
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: middle;
+    background-color: #12768e;
+    border-radius: 6px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px #ffa200;
+}
+
+.circle {
+    border-radius: 50% !important;
+}
+
+/*end dropdown menu*/
 
 #templatemo_header_wrapper {
     width: 100%;
@@ -716,6 +735,7 @@ input[type=file]::file-selector-button:hover {
 .service_box .left img {
     width: 120px;
     height: 120px;
+    object-fit:cover;
 }
 
 .service_box .right {
