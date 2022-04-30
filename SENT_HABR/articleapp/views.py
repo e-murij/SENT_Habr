@@ -2,13 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from articleapp.models import Article
+from mainapp.services import get_comments
 
 from .forms import ArticleCreateForm
 
 
-class ArticleDetailView(DetailView):  # DetailView
+class ArticleDetailView(DetailView):
     template_name = 'articleapp/article_read.html'
     model = Article
 
@@ -16,7 +17,9 @@ class ArticleDetailView(DetailView):  # DetailView
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
         context['title'] = 'Detail article'
         context['article_pk'] = self.kwargs.get('pk')
+        context['comments'] = get_comments(self.get_object())
         return context
+
 
 class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
