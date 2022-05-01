@@ -6,7 +6,7 @@ from mainapp.services import get_all_articles, get_articles_by_section
 class IndexListView(ListView):
     template_name = 'mainapp/index.html'
     model = Article
-    paginate_by = 5
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = super(IndexListView, self).get_queryset()
@@ -21,7 +21,7 @@ class IndexListView(ListView):
 class SectionListView(ListView):
     template_name = 'mainapp/index.html'
     model = Article
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super(SectionListView, self).get_queryset()
