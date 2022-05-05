@@ -604,6 +604,13 @@ input[type=file]::file-selector-button:hover {
     padding: 0;
 }
 
+.page-item.active .page-link {
+
+    background-color: #19acd1;
+    border-color: #19acd1;
+}
+
+
 /* gallery */
 #gallery {
     clear: both;

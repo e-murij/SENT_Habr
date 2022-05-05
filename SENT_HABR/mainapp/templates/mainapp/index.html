@@ -3,49 +3,51 @@
 
 {% block content %}
 
-     {% for article in article_list %}
-            <div class="post_section"><span class="bottom"></span>
+    {% for article in article_list %}
+        <div class="post_section"><span class="bottom"></span>
 
-<!--                <span class="comment"><a href="blog_post.html">65</a></span>-->
+            <!--                <span class="comment"><a href="blog_post.html">65</a></span>-->
 
-                <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
+            <h2><a href="{% url 'articleapp:detail' article.pk %}">{{ article.title }}</a></h2>
 
-                <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
-                <strong>Автор:</strong> {{article.author.username}}
-                <div class="cleaner_h40"></div>
-                <p> {{ article.content|safe|truncatewords:30 }} </p>
+            <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
+            <strong>Автор:</strong> {{ article.author.username }}
+            <div class="cleaner_h40"></div>
+            <p> {{ article.content|safe|truncatewords:30 }} </p>
 
-                <div class="cleaner"></div>
-                <div class="category"> Раздел: {{article.section.name}} </div>
-                <div class="category"> Тэги:
-                    {% for tag in article.tags.all %}
-                        {{tag.name}} |
-                    {% endfor %}
-                </div>
-                <div class="button float_r">
-                    <a href="{% url 'articleapp:detail' article.pk %}" class="more">Читать далее</a>
-                </div>
-                <div class="cleaner"></div>
+            <div class="cleaner"></div>
+            <div class="category"> Раздел: {{ article.section.name }} </div>
+            <div class="category"> Тэги:
+                {% for tag in article.tags.all %}
+                    {{ tag.name }} |
+                {% endfor %}
             </div>
-            <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+            <div class="button float_r">
+                <a href="{% url 'articleapp:detail' article.pk %}" class="more">Читать далее</a>
+            </div>
+            <div class="cleaner"></div>
+        </div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
     {% endfor %}
 
-    <div class="example2-pagination">
-        {% for num in page_obj.paginator.page_range %}
-            {% if num < page_obj.number and num < 2 and page_obj.number > 3 %}
-                <a class="example2-pagination_link" href="?page={{ 1 }}">Начало</a>
-            {% elif num < page_obj.number and num > page_obj.number|add:-3 %}
-                <a class="example2-pagination_link" href="?page={{ num }}">{{ num }}</a>
+    <dev class="pagination_block">
+        <ul class="pagination">
+            {% for num in page_obj.paginator.page_range %}
+                {% if num < page_obj.number and num < 2 and page_obj.number > 3 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ 1 }}">Начало</a></li>
+                {% elif num < page_obj.number and num > page_obj.number|add:-3 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
 
-            {% elif num == page_obj.number %}
-                <span class="example2-pagination_link example2-pagination_link__active">{{ num }}</span>
+                {% elif num == page_obj.number %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span>
 
-            {% elif num > page_obj.number and num < page_obj.number|add:3 %}
-                <a class="example2-pagination_link" href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number and num > page_obj.paginator.num_pages|add:-1 %}
-                <a class="example2-pagination_link" href="?page={{ num }}">Конец</a>
-            {% endif %}
-        {% endfor %}
-    </div>
+                        {% elif num > page_obj.number and num < page_obj.number|add:3 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number and num > page_obj.paginator.num_pages|add:-1 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ num }}">Конец</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </dev>
 
 {% endblock %}
