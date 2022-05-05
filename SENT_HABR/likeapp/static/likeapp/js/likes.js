@@ -11,9 +11,11 @@ $(".like").on("click", function(){
                      'csrfmiddlewaretoken': crf_token
                     },
             success : function (json) {
-                $('li[data-type=$type].like_count');
-                $("..like_count").html(json.like_count);
-                $(".dislike_count").html(json.dislike_count);
+                if (json.redirect) window.location.href = json.redirect;
+                else {
+                   $(`li[data-type="${type}"][data-id="${pk}"]>span[class=like_count]`).html(json.like_count);
+                   $(`li[data-type="${type}"][data-id="${pk}"]>span[class=dislike_count]`).html(json.dislike_count);
+                };
             }
         });
         return false;
@@ -32,9 +34,13 @@ $(".dislike").on("click", function(){
                      'csrfmiddlewaretoken': crf_token
                     },
             success : function (json) {
-                $(".like_count").html(json.like_count);
-                $(".dislike_count").html(json.dislike_count);
-            }
+               if (json.redirect)
+                  window.location.href = json.redirect;
+               else {
+                  $(`li[data-type="${type}"][data-id="${pk}"]>span[class=like_count]`).html(json.like_count);
+                  $(`li[data-type="${type}"][data-id="${pk}"]>span[class=dislike_count]`).html(json.dislike_count);
+               };
+           }
         });
         return false;
 });

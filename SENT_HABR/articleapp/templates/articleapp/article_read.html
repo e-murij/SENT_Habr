@@ -66,7 +66,7 @@
                     <ul class="likes">
                         <li data-id="{{ comment.id }}" data-type="comment" class="like" title="Нравится">
                             <span class="glyphicon glyphicon-thumbs-up">like</span>
-                            <span class="like_count">{{ comment.votes.likes.count }}</span>
+                            <span class= "like_count">{{ comment.votes.likes.count }}</span>
                         </li>
                         <li data-id="{{ comment.id }}" data-type="comment" class="dislike" title="Не нравится">
                             <span class="glyphicon glyphicon-thumbs-down">dislike</span>
@@ -82,6 +82,17 @@
                         {{ com.updated_at |date:" d.m.Y H:i"}}
                         <p style="position: relative;  right: -100px;"> {{ com.content }} </p>
                     </p>
+                    <ul class="likes">
+                        <li data-id="{{ com.id }}" data-type="comment" class="like" title="Нравится">
+                            <span class="glyphicon glyphicon-thumbs-up">like</span>
+                            <span class="like_count">{{ com.votes.likes.count }}</span>
+                        </li>
+                        <li data-id="{{ com.id }}" data-type="comment" class="dislike" title="Не нравится">
+                            <span class="glyphicon glyphicon-thumbs-down">dislike</span>
+                            <span class="dislike_count">{{ com.votes.dislikes.count }}</span>
+                        </li>
+                    </ul>
+
                 {% endfor %}
                 <hr>
             {% endfor %}
