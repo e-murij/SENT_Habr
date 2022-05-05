@@ -30,4 +30,22 @@
             <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
     {% endfor %}
 
+    <div class="example2-pagination">
+        {% for num in page_obj.paginator.page_range %}
+            {% if num < page_obj.number and num < 2 and page_obj.number > 3 %}
+                <a class="example2-pagination_link" href="?page={{ 1 }}">Начало</a>
+            {% elif num < page_obj.number and num > page_obj.number|add:-3 %}
+                <a class="example2-pagination_link" href="?page={{ num }}">{{ num }}</a>
+
+            {% elif num == page_obj.number %}
+                <span class="example2-pagination_link example2-pagination_link__active">{{ num }}</span>
+
+            {% elif num > page_obj.number and num < page_obj.number|add:3 %}
+                <a class="example2-pagination_link" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number and num > page_obj.paginator.num_pages|add:-1 %}
+                <a class="example2-pagination_link" href="?page={{ num }}">Конец</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
 {% endblock %}
