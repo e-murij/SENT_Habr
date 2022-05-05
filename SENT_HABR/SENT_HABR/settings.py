@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'persaccapp',
     'authapp',
     'commentapp',
+    'likeapp',
 
 ]
 

@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load media_users %}
+{% load static %}
 
 {% block content %}
     <div class="service_box">
@@ -29,6 +30,18 @@
                     <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary" style="color: #FFFFFF"> Удалить</a>
             {% endif %}
 
+            <ul class="likes">
+                <li data-id="{{ article.id }}" data-type="article" class="like" title="Нравится">
+                    <span class="glyphicon glyphicon-thumbs-up">like</span>
+                    <span class="like_count">{{ article.votes.likes.count }}</span>
+                </li>
+                <li data-id="{{ article.id }}" data-type="article" class="dislike" title="Не нравится">
+                    <span class="glyphicon glyphicon-thumbs-down">dislike</span>
+                    <span class="dislike_count">{{ article.votes.dislikes.count }}</span>
+                </li>
+            </ul>
+
+
 
             <h3>Комментарии</h3>
             <form action="{% url 'comment:create' article.id %}" method="post" id="formComment">
@@ -50,6 +63,16 @@
                     </p>
                     <p> {{ comment.content }} </p>
                     <a href="#formComment" onclick="addComment('{{ comment.user.username }}', '{{ comment.id }}')">Ответить</a>
+                    <ul class="likes">
+                        <li data-id="{{ comment.id }}" data-type="comment" class="like" title="Нравится">
+                            <span class="glyphicon glyphicon-thumbs-up">like</span>
+                            <span class="like_count">{{ comment.votes.likes.count }}</span>
+                        </li>
+                        <li data-id="{{ comment.id }}" data-type="comment" class="dislike" title="Не нравится">
+                            <span class="glyphicon glyphicon-thumbs-down">dislike</span>
+                            <span class="dislike_count">{{ comment.votes.dislikes.count }}</span>
+                        </li>
+                    </ul>
                 <hr>
 
                 {% for com in comment.comment_set.all %}
@@ -71,4 +94,8 @@
         }
     </script>
 
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'likeapp/js/likes.js' %}"></script>
 {% endblock %}
