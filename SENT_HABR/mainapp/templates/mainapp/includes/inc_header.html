@@ -1,4 +1,6 @@
 {% load static %}
+{% load media_users %}
+
 <div id="templatemo_header_wrapper">
     <div id="templatemo_header">
 
@@ -11,17 +13,24 @@
         </div>
         {% if user.is_authenticated %}
             <div id="templatemo_rss">
-                {#                <a href="{% url 'auth:logout' %}"#}
-                {#                   target="_parent">{{ user.first_name|default:'Пользователь' }}<br/><span>Выйти</span></a>#}
-                {#                <a href="{% url 'auth:edit_user' user.pk %}" target="_parent"><br/><span>Edit User</span></a>#}
-                {#                <a href="{% url 'auth:edit_profile' user.pk %}" target="_parent"><br/><span>Edit Profile</span></a>#}
+
+                {#                <img src="{% static 'mainapp/images/default_django-icon.png' %}" alt="{{ user.first_name }}" data-view-component="true" class="avatar circle">#}
+                {% if user.avatar %}
+                    <img src="{{ user.avatar | user_avatar}}" alt="{{ user.first_name }}" data-view-component="true"
+                         class="avatar circle">
+                {% else %}
+                    <img src="{% static 'mainapp/images/default_django-icon.png' %}" alt="{{ user.first_name }}" data-view-component="true"
+                         class="avatar circle">
+                {% endif %}
+
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                {{ user.first_name|default:'Пользователь' }}
+                    {{ user.first_name|default:'Пользователь' }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                     <li><a class="dropdown-item" href="{% url 'auth:edit' %}">Редактировать профиль</a></li>
-                    <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}">Пресональная страница</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}">Пресональная
+                        страница</a></li>
                     <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Выход</a></li>
                     <li>
                         <hr class="dropdown-divider">
