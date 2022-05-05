@@ -1,6 +1,8 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 
 from authapp.models import TimeStampMixin, User
+from likeapp.models import LikeDislike
 
 
 class Tag(TimeStampMixin):
@@ -66,8 +68,17 @@ class Article(TimeStampMixin):
         verbose_name='содержание',
         blank=True,
     )
-    is_active = models.BooleanField(default=True)
-    is_published = models.BooleanField(default=False, verbose_name='опубликовать')
+    is_active = models.BooleanField(
+        default=True
+    )
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name='опубликовать'
+    )
+    votes = GenericRelation(
+        LikeDislike,
+        related_query_name='articles',
+    )
 
     def __str__(self):
         return self.title

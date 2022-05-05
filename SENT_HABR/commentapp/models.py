@@ -1,7 +1,9 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 
 from articleapp.models import Article
 from authapp.models import User, TimeStampMixin
+from likeapp.models import LikeDislike
 
 
 class Comment(TimeStampMixin):
@@ -26,6 +28,10 @@ class Comment(TimeStampMixin):
         Article,
         verbose_name='Статья',
         on_delete=models.CASCADE,
+    )
+    votes = GenericRelation(
+        LikeDislike,
+        related_query_name='comments',
     )
 
     def __str__(self):
