@@ -5,15 +5,26 @@
 {% block content %}
     <div class="service_box">
 
-            <span class="comment"><a href="#formComment">{{ article.comment_set.count }}</a></span>
-
             <h2>{{article.title}}</h2>
 
             <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i"}}|
             <strong>Автор:</strong><a href="{% url 'account:personal_page' article.author.pk %}"> {{article.author.username}}</a>
 
+            <ul class="likes">
+                        <li data-id="{{ article.author.pk }}" data-type="user" class="like" title="Нравится">
+                            <span class="glyphicon glyphicon-thumbs-up">like</span>
+                            <span class= "like_count">{{ article.author.votes.likes.count }}</span>
+                        </li>
+                        <li data-id="{{article.author.pk }}" data-type="user" class="dislike" title="Не нравится">
+                            <span class="glyphicon glyphicon-thumbs-down">dislike</span>
+                            <span class="dislike_count">{{ article.author.votes.dislikes.count }}</span>
+                        </li>
+            </ul>
+
+
             <div class="cleaner_40"></div>
             <div class="category"> Раздел: {{article.section.name}} </div>
+            <div class="category"> Рейтинг: <span class="rating"> {{ article.votes.sum_rating }} </span> </div>
             <div class="category"> Тэги:
                 {% for tag in article.tags.all %}
                 {{tag.name}} |
@@ -43,7 +54,7 @@
 
 
 
-            <h3>Комментарии</h3>
+            <h3>Комментарии ({{ article.comment_set.count }})</h3>
             <form action="{% url 'comment:create' article.id %}" method="post" id="formComment">
                 {% csrf_token %}
                 <input type="hidden" name="parent" id="contactparent" value="">

@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.urls import reverse
+
+from likeapp.models import LikeDislike
 
 
 class TimeStampMixin(models.Model):
@@ -14,7 +16,14 @@ class TimeStampMixin(models.Model):
 
 
 class User(AbstractUser, TimeStampMixin):
-    avatar = models.ImageField(upload_to='users_avatars', blank=True)
+    avatar = models.ImageField(
+        upload_to='users_avatars',
+        blank=True,
+    )
+    votes = GenericRelation(
+        LikeDislike,
+        related_query_name='users',
+    )
 
     def __str__(self):
         return self.username

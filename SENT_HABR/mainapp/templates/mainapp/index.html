@@ -6,7 +6,7 @@
      {% for article in article_list %}
             <div class="post_section"><span class="bottom"></span>
 
-<!--                <span class="comment"><a href="blog_post.html">65</a></span>-->
+                <span class="comment">{{ article.comment_set.count }}</span>
 
                 <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
 
@@ -17,6 +17,7 @@
 
                 <div class="cleaner"></div>
                 <div class="category"> Раздел: {{article.section.name}} </div>
+                <div class="category"> Рейтинг: {{ article.votes.sum_rating }}</div>
                 <div class="category"> Тэги:
                     {% for tag in article.tags.all %}
                         {{tag.name}} |
@@ -25,8 +26,6 @@
                 <div class="button float_r">
                     <a href="{% url 'articleapp:detail' article.pk %}" class="more">Читать далее</a>
                 </div>
-                <span class="like_count"> лайк {{ article.votes.likes.count }}</span>
-                <span class="dislike_count"> дизлайк {{ article.votes.dislikes.count }}</span>
                 <div class="cleaner"></div>
             </div>
             <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
