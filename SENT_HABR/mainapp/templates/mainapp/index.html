@@ -28,26 +28,31 @@
                 <span class="like_count"> лайк {{ article.votes.likes.count }}</span>
                 <span class="dislike_count"> дизлайк {{ article.votes.dislikes.count }}</span>
                 <div class="cleaner"></div>
+
             </div>
-            <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+            <div class="cleaner"></div>
+        </div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
     {% endfor %}
 
-    <div class="example2-pagination">
-        {% for num in page_obj.paginator.page_range %}
-            {% if num < page_obj.number and num < 2 and page_obj.number > 3 %}
-                <a class="example2-pagination_link" href="?page={{ 1 }}">Начало</a>
-            {% elif num < page_obj.number and num > page_obj.number|add:-3 %}
-                <a class="example2-pagination_link" href="?page={{ num }}">{{ num }}</a>
+    <dev class="pagination_block">
+        <ul class="pagination">
+            {% for num in page_obj.paginator.page_range %}
+                {% if num < page_obj.number and num < 2 and page_obj.number > 3 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ 1 }}">Начало</a></li>
+                {% elif num < page_obj.number and num > page_obj.number|add:-3 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
 
-            {% elif num == page_obj.number %}
-                <span class="example2-pagination_link example2-pagination_link__active">{{ num }}</span>
+                {% elif num == page_obj.number %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span>
 
-            {% elif num > page_obj.number and num < page_obj.number|add:3 %}
-                <a class="example2-pagination_link" href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number and num > page_obj.paginator.num_pages|add:-1 %}
-                <a class="example2-pagination_link" href="?page={{ num }}">Конец</a>
-            {% endif %}
-        {% endfor %}
-    </div>
+                        {% elif num > page_obj.number and num < page_obj.number|add:3 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number and num > page_obj.paginator.num_pages|add:-1 %}
+                    <li class="page-item "><a class="page-link" href="?page={{ num }}">Конец</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </dev>
 
 {% endblock %}
