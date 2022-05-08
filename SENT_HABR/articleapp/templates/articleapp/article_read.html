@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load media_users %}
+{% load user_in_list %}
 {% load static %}
 
 {% block content %}
@@ -14,17 +15,19 @@
                         <li data-id="{{ article.author.pk }}" data-type="user" class="like" title="Нравится">
                             <span class="glyphicon glyphicon-thumbs-up">like</span>
                             <span class= "like_count">{{ article.author.votes.likes.count }}</span>
+                            <span>{% if article.author.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
                         </li>
                         <li data-id="{{article.author.pk }}" data-type="user" class="dislike" title="Не нравится">
                             <span class="glyphicon glyphicon-thumbs-down">dislike</span>
                             <span class="dislike_count">{{ article.author.votes.dislikes.count }}</span>
+                            <span>{% if article.author.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                         </li>
             </ul>
 
 
             <div class="cleaner_40"></div>
             <div class="category"> Раздел: {{article.section.name}} </div>
-            <div class="category"> Рейтинг: <span class="rating"> {{ article.votes.sum_rating }} </span> </div>
+            <div class="category"> Рейтинг: <span class="article_rating"> {{ article.votes.sum_rating }} </span> </div>
             <div class="category"> Тэги:
                 {% for tag in article.tags.all %}
                 {{tag.name}} |
@@ -45,10 +48,12 @@
                 <li data-id="{{ article.id }}" data-type="article" class="like" title="Нравится">
                     <span class="glyphicon glyphicon-thumbs-up">like</span>
                     <span class="like_count">{{ article.votes.likes.count }}</span>
+                    <span>{% if article.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
                 </li>
                 <li data-id="{{ article.id }}" data-type="article" class="dislike" title="Не нравится">
                     <span class="glyphicon glyphicon-thumbs-down">dislike</span>
                     <span class="dislike_count">{{ article.votes.dislikes.count }}</span>
+                    <span>{% if article.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                 </li>
             </ul>
 
@@ -78,10 +83,12 @@
                         <li data-id="{{ comment.id }}" data-type="comment" class="like" title="Нравится">
                             <span class="glyphicon glyphicon-thumbs-up">like</span>
                             <span class= "like_count">{{ comment.votes.likes.count }}</span>
+                            <span>{% if comment.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
                         </li>
                         <li data-id="{{ comment.id }}" data-type="comment" class="dislike" title="Не нравится">
                             <span class="glyphicon glyphicon-thumbs-down">dislike</span>
                             <span class="dislike_count">{{ comment.votes.dislikes.count }}</span>
+                            <span>{% if comment.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                         </li>
                     </ul>
                 <hr>
@@ -97,10 +104,12 @@
                         <li data-id="{{ com.id }}" data-type="comment" class="like" title="Нравится">
                             <span class="glyphicon glyphicon-thumbs-up">like</span>
                             <span class="like_count">{{ com.votes.likes.count }}</span>
+                            <span>{% if com.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
                         </li>
                         <li data-id="{{ com.id }}" data-type="comment" class="dislike" title="Не нравится">
                             <span class="glyphicon glyphicon-thumbs-down">dislike</span>
                             <span class="dislike_count">{{ com.votes.dislikes.count }}</span>
+                            <span>{% if com.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                         </li>
                     </ul>
 

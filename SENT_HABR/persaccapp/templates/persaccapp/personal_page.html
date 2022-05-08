@@ -1,6 +1,7 @@
 {% extends 'mainapp/base.html' %}
 {% load media_users %}
 {% load static %}
+{% load user_in_list %}
 
 {% block content %}
     <ul class="service_box">
@@ -21,17 +22,19 @@
         <ul> Дата рождения: {{ object.userprofile.birthday | date:"d.m.Y"}}</ul>
         <ul> Email: {{ object.email }}</ul>
         <ul> Дата регистрации: {{object.created_at | date:"d.m.Y"}} </ul>
-        <ul> Рейтинг: <span class="rating"> {{ object.votes.sum_rating }} </span> </ul>
+        <ul> Рейтинг: <span class="user_rating"> {{ object.votes.sum_rating }} </span> </ul>
 
          <ul class="likes">
                 {% csrf_token %}
                 <li data-id="{{ object.id }}" data-type="user" class="like" title="Нравится">
                     <span class="glyphicon glyphicon-thumbs-up">like</span>
                     <span class= "like_count">{{ object.votes.likes.count }}</span>
+                    <span>{% if object.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
                 </li>
                 <li data-id="{{ object.id }}" data-type="user" class="dislike" title="Не нравится">
                     <span class="glyphicon glyphicon-thumbs-down">dislike</span>
                     <span class="dislike_count">{{ object.votes.dislikes.count }}</span>
+                    <span>{% if object.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                 </li>
          </ul>
 
