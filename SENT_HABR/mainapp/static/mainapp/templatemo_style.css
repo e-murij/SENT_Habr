@@ -612,7 +612,15 @@ input[type=file]::file-selector-button:hover {
 
 
 /*like dislike block*/
-ul.likes {
+.autor_likes {
+    display: flex;
+}
+
+.autor_likes ul {
+    margin-top: 0px;
+}
+
+.likes {
     display: flex;
     margin-top: 10px;
     padding: 0;
@@ -639,12 +647,12 @@ ul.likes {
     outline: none;
 }
 
-.green{
-  color: green;
+.green {
+    color: green;
 }
 
-.red{
-  color: red;
+.red {
+    color: red;
 }
 
 /*end like dislike block*/
