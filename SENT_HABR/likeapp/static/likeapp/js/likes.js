@@ -17,7 +17,8 @@ function addVote() {
             else {
                $(`li[data-type="${type}"][data-id="${pk}"]>span[class=like_count]`).html(json.like_count);
                $(`li[data-type="${type}"][data-id="${pk}"]>span[class=dislike_count]`).html(json.dislike_count);
-               if (type == "article" || type == "user") $(`span[class=rating]`).html(json.sum_rating);
+               if (type == "article") $(`span[class=article_rating]`).html(json.sum_rating);
+               if (type == "user") $(`span[class=user_rating]`).html(json.sum_rating);
             };
         }
     });
