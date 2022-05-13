@@ -35,7 +35,7 @@
 
         </li>
         <li data-id="{{ object.id }}" data-type="user" class="dislike" title="Не нравится">
-            <button class="btn_like {% if object.votes.likes.all|user_in_list:user %}red{% endif %}"
+            <button class="btn_like {% if object.votes.dislikes.all|user_in_list:user %}red{% endif %}"
                     id="red">
                 <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
             </button>
