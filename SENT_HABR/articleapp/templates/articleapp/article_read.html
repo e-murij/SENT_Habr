@@ -14,20 +14,21 @@
                 href="{% url 'account:personal_page' article.author.pk %}"> {{ article.author.username }}</a>
             <ul class="likes">
                 <li data-id="{{ article.author.pk }}" data-type="user" class="like" title="Нравится">
-                    <button class="btn_like" id="green">
+                    <button class="btn_like {% if article.author.votes.likes.all|user_in_list:user %}green{% endif %}"
+                            id="green">
                         <i class="fa-regular fa-thumbs-up" alt="Нравится"></i>
                     </button>
 
-                            <span>{% if article.author.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
+
                     <span class="like_count">{{ article.author.votes.likes.count }}</span>
                 </li>
                 <li data-id="{{ article.author.pk }}" data-type="user" class="dislike" title="Не нравится">
 
-                    <button class="btn_like" id="red">
+                    <button class="btn_like {% if article.author.votes.dislikes.all|user_in_list:user %}red{% endif %}"
+                            id="red">
                         <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
                     </button>
 
-                            <span>{% if article.author.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                     <span class="dislike_count">{{ article.author.votes.dislikes.count }}</span>
                 </li>
             </ul>
@@ -55,19 +56,19 @@
 
         <ul class="likes">
             <li data-id="{{ article.id }}" data-type="article" class="like" title="Нравится">
-                <button class="btn_like" id="green">
+                <button class="btn_like {% if article.votes.likes.all|user_in_list:user %}green{% endif %}"
+                        id="green">
                     <i class="fa-regular fa-thumbs-up" alt="Нравится"></i>
                 </button>
                 <span class="like_count">{{ article.votes.likes.count }}</span>
-                                <span>{% if article.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
 
             </li>
             <li data-id="{{ article.id }}" data-type="article" class="dislike" title="Не нравится">
-                <button class="btn_like" id="red">
+                <button class="btn_like {% if article.votes.dislikes.all|user_in_list:user %}red{% endif %}"
+                        id="red">
                     <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
                 </button>
                 <span class="dislike_count">{{ article.votes.dislikes.count }}</span>
-                                <span>{% if article.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
 
             </li>
         </ul>
@@ -95,17 +96,17 @@
             <a href="#formComment" onclick="addComment('{{ comment.user.username }}', '{{ comment.id }}')">Ответить</a>
             <ul class="likes">
                 <li data-id="{{ comment.id }}" data-type="comment" class="like" title="Нравится">
-                    <button class="btn_like" id="green">
+                    <button class="btn_like {% if comment.votes.likes.all|user_in_list:user %}green{% endif %}"
+                            id="green">
                         <i class="fa-regular fa-thumbs-up" alt="Нравится"></i>
                     </button>
-                            <span>{% if comment.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
                     <span class="like_count">{{ comment.votes.likes.count }}</span>
                 </li>
                 <li data-id="{{ comment.id }}" data-type="comment" class="dislike" title="Не нравится">
-                    <button class="btn_like" id="red">
+                    <button class="btn_like {% if comment.votes.dislikes.all|user_in_list:user %}red{% endif %}"
+                            id="red">
                         <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
                     </button>
-                            <span>{% if comment.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
                     <span class="dislike_count">{{ comment.votes.dislikes.count }}</span>
                 </li>
             </ul>
@@ -120,19 +121,17 @@
                 </p>
                 <ul class="likes">
                     <li data-id="{{ com.id }}" data-type="comment" class="like" title="Нравится">
-                        <button class="btn_like" id="green">
+                        <button class="btn_like {% if com.votes.likes.all|user_in_list:user %}geen{% endif %}"
+                                id="green">
                             <i class="fa-regular fa-thumbs-up" alt="Нравится"></i>
                         </button>
-                            <span>{% if com.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
-
                         <span class="like_count">{{ com.votes.likes.count }}</span>
                     </li>
                     <li data-id="{{ com.id }}" data-type="comment" class="dislike" title="Не нравится">
-                        <button class="btn_like" id="red">
+                        <button class="btn_like {% if com.votes.dislikes.all|user_in_list:user %}red{% endif %}"
+                                id="red">
                             <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
                         </button>
-                            <span>{% if com.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
-
                         <span class="dislike_count">{{ com.votes.dislikes.count }}</span>
                     </li>
                 </ul>

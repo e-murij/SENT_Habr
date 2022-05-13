@@ -5,48 +5,54 @@
 
 {% block content %}
     <ul class="service_box">
-        <h4>{{ object.first_name }} {{ object.last_name }} ({{ object.username }})</h4>
-        <div class="left">
-            <img src="{{ object.avatar | user_avatar}}" alt="avatar" />
-        </div>
-        <div class="right">
-            <p> {{ object.userprofile.about_me}} </p>
-        </div>
-        <div class="cleaner_h40"></div>
-        <ul> Пол:
-                {% if object.userprofile.gender == 'W' %} Женский
-                {% elif object.userprofile.gender == 'M' %} Мужской
-                {% else %} --
-                {% endif %}
-        </ul>
-        <ul> Дата рождения: {{ object.userprofile.birthday | date:"d.m.Y"}}</ul>
-        <ul> Email: {{ object.email }}</ul>
-        <ul> Дата регистрации: {{object.created_at | date:"d.m.Y"}} </ul>
-        <ul> Рейтинг: <span class="user_rating"> {{ object.votes.sum_rating }} </span> </ul>
-
-         <ul class="likes">
-                {% csrf_token %}
-                <li data-id="{{ object.id }}" data-type="user" class="like" title="Нравится">
-                    <span class="glyphicon glyphicon-thumbs-up">like</span>
-                    <span class= "like_count">{{ object.votes.likes.count }}</span>
-                    <span>{% if object.votes.likes.all|user_in_list:user %}yes{% endif %}</span>
-                </li>
-                <li data-id="{{ object.id }}" data-type="user" class="dislike" title="Не нравится">
-                    <span class="glyphicon glyphicon-thumbs-down">dislike</span>
-                    <span class="dislike_count">{{ object.votes.dislikes.count }}</span>
-                    <span>{% if object.votes.dislikes.all|user_in_list:user %}yes{% endif %}</span>
-                </li>
-         </ul>
-
-
-        <div class="cleaner_h40"></div>
-        {% if user.is_authenticated and user.pk == object.pk %}
-             <a href="{% url 'auth:edit' %}"  class="btn btn-primary" style="color: #FFFFFF">Редактировать профиль</a>
-             <a href="{% url 'account:my_articles'%}"  class="btn btn-primary" style="color: #FFFFFF">Мои статьи</a>
-        {% endif %}
+    <h4>{{ object.first_name }} {{ object.last_name }} ({{ object.username }})</h4>
+    <div class="left">
+        <img src="{{ object.avatar | user_avatar }}" alt="avatar"/>
     </div>
+    <div class="right">
+        <p> {{ object.userprofile.about_me }} </p>
+    </div>
+    <div class="cleaner_h40"></div>
+    <ul> Пол:
+        {% if object.userprofile.gender == 'W' %} Женский
+        {% elif object.userprofile.gender == 'M' %} Мужской
+        {% else %} --
+        {% endif %}
+    </ul>
+    <ul> Дата рождения: {{ object.userprofile.birthday | date:"d.m.Y" }}</ul>
+    <ul> Email: {{ object.email }}</ul>
+    <ul> Дата регистрации: {{ object.created_at | date:"d.m.Y" }} </ul>
+    <ul> Рейтинг: <span class="user_rating"> {{ object.votes.sum_rating }} </span></ul>
+
+    <ul class="likes">
+        {% csrf_token %}
+        <li data-id="{{ object.id }}" data-type="user" class="like" title="Нравится">
+            <button class="btn_like {% if object.votes.likes.all|user_in_list:user %}green{% endif %}"
+                    id="green">
+                <i class="fa-regular fa-thumbs-up" alt="Нравится"></i>
+            </button>
+            <span class="like_count">{{ object.votes.likes.count }}</span>
+
+        </li>
+        <li data-id="{{ object.id }}" data-type="user" class="dislike" title="Не нравится">
+            <button class="btn_like {% if object.votes.likes.all|user_in_list:user %}red{% endif %}"
+                    id="red">
+                <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
+            </button>
+            <span class="dislike_count">{{ object.votes.dislikes.count }}</span>
+        </li>
+    </ul>
+
+
+    <div class="cleaner_h40"></div>
+    {% if user.is_authenticated and user.pk == object.pk %}
+        <a href="{% url 'auth:edit' %}" class="btn btn-primary" style="color: #FFFFFF">Редактировать профиль</a>
+        <a href="{% url 'account:my_articles' %}" class="btn btn-primary" style="color: #FFFFFF">Мои статьи</a>
+    {% endif %}
+
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'likeapp/js/likes.js' %}"></script>
+    <script src="{% static 'likeapp/js/likes_colorize.js' %}"></script>
 {% endblock %}
