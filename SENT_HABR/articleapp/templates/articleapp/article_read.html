@@ -36,7 +36,7 @@
 
         <div class="cleaner_40"></div>
         <div class="category"> Раздел: {{ article.section.name }} </div>
-        <div class="category"> Рейтинг: <span class="rating"> {{ article.votes.sum_rating }} </span></div>
+        <div class="category"> Рейтинг: <span class="article_rating"> {{ article.votes.sum_rating }} </span> </div>
         <div class="category"> Тэги:
             {% for tag in article.tags.all %}
                 {{ tag.name }} |
