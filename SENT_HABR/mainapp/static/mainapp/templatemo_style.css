@@ -242,7 +242,7 @@ input[type=file]::file-selector-button:hover {
     size: 25px;
     height: 25px;
     width: 25px;
-    object-fit:cover;
+    object-fit: cover;
     display: inline-block;
     overflow: hidden;
     line-height: 1;
@@ -443,7 +443,7 @@ input[type=file]::file-selector-button:hover {
     top: -10px;
     right: 0px;
     width: 70px;
-    height: 42px;
+    height: 50px;
     text-align: center;
     padding-top: 10px;
     font-size: 16px;
@@ -611,6 +611,52 @@ input[type=file]::file-selector-button:hover {
 }
 
 
+/*like dislike block*/
+.autor_likes {
+    display: flex;
+}
+
+.autor_likes ul {
+    margin-top: 0px;
+}
+
+.likes {
+    display: flex;
+    margin-top: 10px;
+    padding: 0;
+}
+
+.likes li {
+    list-style: none;
+}
+
+.btn_like i {
+    font-size: 18px;
+
+}
+
+.btn_like {
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    background-color: transparent;
+    color: #12768e;
+}
+
+.btn_like:focus {
+    outline: none;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+/*end like dislike block*/
+
 /* gallery */
 #gallery {
     clear: both;
@@ -742,7 +788,7 @@ input[type=file]::file-selector-button:hover {
 .service_box .left img {
     width: 120px;
     height: 120px;
-    object-fit:cover;
+    object-fit: cover;
 }
 
 .service_box .right {
