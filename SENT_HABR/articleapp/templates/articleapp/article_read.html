@@ -18,8 +18,6 @@
                             id="green">
                         <i class="fa-regular fa-thumbs-up" alt="Нравится"></i>
                     </button>
-
-
                     <span class="like_count">{{ article.author.votes.likes.count }}</span>
                 </li>
                 <li data-id="{{ article.author.pk }}" data-type="user" class="dislike" title="Не нравится">
@@ -28,7 +26,6 @@
                             id="red">
                         <i class="fa-regular fa-thumbs-down" alt="Не нравится"></i>
                     </button>
-
                     <span class="dislike_count">{{ article.author.votes.dislikes.count }}</span>
                 </li>
             </ul>

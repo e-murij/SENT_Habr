@@ -1,6 +1,6 @@
 from django.views.generic import ListView
 from articleapp.models import Article
-from mainapp.services import get_all_articles, get_articles_by_section
+from articleapp.services import get_all_articles, get_articles_by_section
 
 
 class IndexListView(ListView):
