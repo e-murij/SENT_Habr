@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from articleapp.models import Article
-from mainapp.services import get_comments
+from articleapp.services import get_comments, get_article_by_id
 
 from .forms import ArticleCreateForm
 
@@ -33,7 +33,7 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleEditView, self).get_context_data(**kwargs)
-        article = Article.objects.get(pk=self.kwargs.get('pk'))
+        article = get_article_by_id(self.kwargs.get('pk'))
         context['form_class'] = ArticleCreateForm(instance=article)
         context['title'] = 'edit article'
         return context

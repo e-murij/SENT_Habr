@@ -1,15 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
 from django.views import View
 
-from articleapp.models import Article
+from articleapp.services import get_article_by_id
 from commentapp.forms import CommentForm
+from notificationapp.services import create_notify
 
 
 class CommentCreate(LoginRequiredMixin, View):
     def post(self, request, pk):
         form = CommentForm(request.POST)
-        article = Article.objects.get(id=pk)
+        article = get_article_by_id(pk)
         user = self.request.user
         if form.is_valid():
             form = form.save(commit=False)
@@ -18,4 +20,5 @@ class CommentCreate(LoginRequiredMixin, View):
             form.article = article
             form.user = user
             form.save()
+            create_notify(user=article.author, content_type=ContentType.objects.get_for_model(form), object_id=form.pk)
         return redirect('article:detail', pk=article.pk)

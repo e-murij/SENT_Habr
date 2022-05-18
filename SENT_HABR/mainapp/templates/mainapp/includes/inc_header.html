@@ -1,5 +1,6 @@
 {% load static %}
 {% load media_users %}
+{% load has_new_notify %}
 
 <div id="templatemo_header_wrapper">
     <div id="templatemo_header">
@@ -31,6 +32,14 @@
                     <li><a class="dropdown-item" href="{% url 'auth:edit' %}">Редактировать профиль</a></li>
                     <li><a class="dropdown-item" href="{% url 'account:personal_page' user.pk %}">Пресональная
                         страница</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'notification:my_notifications' user.pk %}" >
+                            {% if request.user|has_new_notify %}
+                            🔔
+                            {% endif %}
+                            Мои уведомления
+                        </a>
+                    </li>
                     <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Выход</a></li>
                     <li>
                         <hr class="dropdown-divider">

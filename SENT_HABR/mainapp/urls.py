@@ -10,4 +10,5 @@ urlpatterns = [
     path('account/', include('persaccapp.urls', namespace='account'), name='account'),
     path('comment/', include('commentapp.urls', namespace='comment'), name='comment'),
     path('likes/', include('likeapp.urls', namespace='likes'), name='likes'),
+    path('notification/', include('notificationapp.urls', namespace='notification'), name='notification'),
 ]
