@@ -20,6 +20,7 @@ class LikeDislikeManager(models.Manager):
 
 
 def content_owner(content_obj):
+    """Возвращает пользователя, который создал объект content_obj"""
     obj_type = ContentType.objects.get_for_model(content_obj).model
     if obj_type == 'comment':
         return content_obj.user
@@ -27,3 +28,15 @@ def content_owner(content_obj):
         return content_obj.author
     elif obj_type == 'user':
         return content_obj
+
+
+def get_popular_elements(queryset, count):
+    """Возвращает список, состоящий из count элементов с максимальным рейтингом"""
+    elements = list(queryset)
+    sorted_elements = sorted(elements, key=element_sum_rating, reverse=True)
+    return sorted_elements[:count]
+
+
+def element_sum_rating(article):
+    """Вычисление рейтинга элементов article"""
+    return article.votes.sum_rating()
