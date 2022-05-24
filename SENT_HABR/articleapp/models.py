@@ -58,6 +58,7 @@ class Article(TimeStampMixin):
         Tag,
         verbose_name='тэги',
         null=True,
+        blank=True,
     )
     section = models.ForeignKey(
         Section,
