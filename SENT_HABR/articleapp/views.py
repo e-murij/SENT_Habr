@@ -69,7 +69,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     template_name = 'articleapp/article_create.html'
     form_class = ArticleCreateForm
-    success_url = '/'  # todo Change to redirect
+    success_url = reverse_lazy('account:my_articles')
 
     def form_valid(self, form):
         self.object = form.save()

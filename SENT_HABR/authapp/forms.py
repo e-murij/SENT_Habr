@@ -1,9 +1,7 @@
-import hashlib
-from random import random
-
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from authapp.models import User, UserProfile
+from authapp.servises import create_activation_key
 
 
 class UserRegisterForm(UserCreationForm):
@@ -26,8 +24,7 @@ class UserRegisterForm(UserCreationForm):
 
     def save(self, *args, **kwargs):
         user = super(UserRegisterForm, self).save()
-        salt = hashlib.sha1(str(random()).encode('utf8')).hexdigest()[:6]
-        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+        user.activation_key = create_activation_key(user)
         user.save()
         return user
 

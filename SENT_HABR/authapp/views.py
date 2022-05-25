@@ -1,18 +1,15 @@
-import hashlib
-from random import random
-
 from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import FormView, TemplateView
 
 from authapp.forms import UserRegisterForm, UserAuthenticationForm, UpdateProfileForm, UpdateUserForm
 from authapp.models import User
-from authapp.servises import get_user_by_id, send_verify_mail
+from authapp.servises import get_user_by_id, send_verify_mail, create_activation_key
 
 
 class LoginFormView(FormView):
@@ -23,12 +20,9 @@ class LoginFormView(FormView):
         self.user = form.get_user()
         if self.user.is_verify:
             auth.login(self.request, self.user, backend='django.contrib.auth.backends.ModelBackend')
-        return super(LoginFormView, self).form_valid(form)
-
-    def get_success_url(self):
-        if self.user.is_verify:
-            return reverse_lazy('account:personal_page', kwargs={'pk': self.request.user.pk})
-        return reverse_lazy('auth:verify_email', kwargs={'pk': self.user.pk})
+            next_page = self.request.POST.get('next')
+            return HttpResponseRedirect(self.request.POST.get('next')) if next_page else HttpResponseRedirect('/')
+        return HttpResponseRedirect(reverse_lazy('auth:verify_email', kwargs={'pk': self.user.pk}))
 
     def get_context_data(self, **kwargs):
         context = super(LoginFormView, self).get_context_data(**kwargs)
@@ -116,10 +110,7 @@ class VerifyEmailView(TemplateView):
 class RepeatVerifyEmailView(View):
     def get(self, request, *args, **kwargs):
         user = get_user_by_id(kwargs['pk'])
-        salt = hashlib.sha1(str(random()).encode('utf8')).hexdigest()[:6]
-        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+        user.activation_key = create_activation_key(user)
         user.save()
         send_verify_mail(user)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
