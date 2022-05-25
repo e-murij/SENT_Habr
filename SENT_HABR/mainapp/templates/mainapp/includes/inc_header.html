@@ -65,7 +65,7 @@
             {% for link in sections_menu %}
                 <li>
                     <a href="{% url 'section' link.slug %}"
-                       class="{% if request.resolver_match.kwargs.pk == link.pk %}current{% endif %}">{{ link.name }}
+                       class="{% if request.resolver_match.kwargs.section_slug == link.slug %}current{% endif %}">{{ link.name }}
                     </a>
                 </li>
             {% endfor %}
