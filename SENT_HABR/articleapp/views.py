@@ -6,7 +6,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from articleapp.models import Article
 from articleapp.services import get_comments, get_article_by_id
 
-from .forms import ArticleCreateForm
+from .forms import ArticleCreateForm, ArticleUpdateForm
 
 
 class ArticleDetailView(DetailView):
@@ -24,17 +24,17 @@ class ArticleDetailView(DetailView):
 class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     template_name = 'articleapp/article_edit.html'
-    form_class = ArticleCreateForm
+    form_class = ArticleUpdateForm
     success_url = reverse_lazy('account:my_articles')
 
     def check_author(self):
         obj = self.get_object()
-        return obj.author == self.request.user
+        return obj.author == self.request.user or self.request.user.is_superuser or self.request.user.is_staff
 
     def get_context_data(self, **kwargs):
         context = super(ArticleEditView, self).get_context_data(**kwargs)
         article = get_article_by_id(self.kwargs.get('pk'))
-        context['form_class'] = ArticleCreateForm(instance=article)
+        context['form_class'] = ArticleUpdateForm(instance=article)
         context['title'] = 'edit article'
         return context
 

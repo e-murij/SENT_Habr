@@ -1,11 +1,18 @@
-from django.contrib.auth import login, logout
+import hashlib
+from random import random
+
+from django.contrib import auth
+from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
+
 from authapp.forms import UserRegisterForm, UserAuthenticationForm, UpdateProfileForm, UpdateUserForm
+from authapp.models import User
+from authapp.servises import get_user_by_id, send_verify_mail
 
 
 class LoginFormView(FormView):
@@ -14,11 +21,14 @@ class LoginFormView(FormView):
 
     def form_valid(self, form):
         self.user = form.get_user()
-        login(self.request, self.user)
+        if self.user.is_verify:
+            auth.login(self.request, self.user, backend='django.contrib.auth.backends.ModelBackend')
         return super(LoginFormView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('account:personal_page', kwargs={'pk': self.request.user.pk})
+        if self.user.is_verify:
+            return reverse_lazy('account:personal_page', kwargs={'pk': self.request.user.pk})
+        return reverse_lazy('auth:verify_email', kwargs={'pk': self.user.pk})
 
     def get_context_data(self, **kwargs):
         context = super(LoginFormView, self).get_context_data(**kwargs)
@@ -29,12 +39,15 @@ class LoginFormView(FormView):
 
 class RegisterFormView(FormView):
     form_class = UserRegisterForm
-    success_url = reverse_lazy('auth:login')
     template_name = "authapp/register_form.html"
 
     def form_valid(self, form):
-        form.save()
+        self.user = form.save()
+        send_verify_mail(self.user)
         return super(RegisterFormView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('auth:verify_email', kwargs={'pk': self.user.pk})
 
     def get_context_data(self, **kwargs):
         context = super(RegisterFormView, self).get_context_data(**kwargs)
@@ -71,3 +84,42 @@ class EditView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse_lazy('account:personal_page', kwargs={'pk': self.request.user.pk})
+
+
+class VerifyView(View):
+    def get(self, request, email, activation_key):
+        try:
+            user = User.objects.get(email=email)
+            if user.activation_key == activation_key:
+                user.is_verify = True
+                user.save()
+                auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return render(request, 'authapp/verify.html')
+            else:
+                print(f'activation key error in user: {user.username}')
+                return render(request, 'authapp/verify.html')
+        except Exception as err:
+            print(f'Error activation user: {err.args}')
+            return HttpResponseRedirect(reverse('index'))
+
+
+class VerifyEmailView(TemplateView):
+    template_name = 'authapp/verify_email.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VerifyEmailView, self).get_context_data(**kwargs)
+        user = get_user_by_id(kwargs['pk'])
+        context['unverified_user'] = user
+        return context
+
+
+class RepeatVerifyEmailView(View):
+    def get(self, request, *args, **kwargs):
+        user = get_user_by_id(kwargs['pk'])
+        salt = hashlib.sha1(str(random()).encode('utf8')).hexdigest()[:6]
+        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+        user.save()
+        send_verify_mail(user)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+

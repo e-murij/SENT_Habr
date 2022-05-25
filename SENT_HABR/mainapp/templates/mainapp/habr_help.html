@@ -1,0 +1,25 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+ <div class="service_box">
+
+        <h2>{{ help_article.title }}</h2>
+
+        <strong>Дата публикации:</strong> {{ help_article.updated_at |date:" d.m.Y H:i" }} <br>
+
+        <div class="cleaner_40"></div>
+        <div class="category"> Раздел: {{ help_article.section.name }} </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_40"></div>
+        <div>
+            <p> {{ help_article.content |safe }} </p>
+        </div>
+
+        {% if user.is_authenticated and user.is_admin or user.is_staff %}
+            <a href="{% url 'article:edit' help_article.pk %}" class="btn btn-primary" style="color: #FFFFFF">
+                Редактировать</a>
+        {% endif %}
+ </div>
+
+
+{% endblock %}

@@ -1,4 +1,5 @@
-from django.views.generic import ListView
+from django.views import View
+from django.views.generic import ListView, TemplateView
 from articleapp.models import Article
 from articleapp.services import get_all_articles, get_articles_by_section
 
@@ -31,3 +32,15 @@ class SectionListView(ListView):
         context = super(SectionListView, self).get_context_data(**kwargs)
         context['title'] = self.kwargs['section_slug']
         return context
+
+
+class HelpView(TemplateView):
+    template_name = 'mainapp/habr_help.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HelpView, self).get_context_data(**kwargs)
+        help_article = get_articles_by_section(Article.objects.all(), 'help').first()
+        context['help_article'] = help_article
+        return context
+
+

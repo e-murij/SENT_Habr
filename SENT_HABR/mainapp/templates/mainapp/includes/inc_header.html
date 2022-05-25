@@ -63,12 +63,20 @@
                    class="{% if request.resolver_match.view_name == 'index' %}current{% endif %}">Все</a>
             </li>
             {% for link in sections_menu %}
-                <li>
-                    <a href="{% url 'section' link.slug %}"
-                       class="{% if request.resolver_match.kwargs.section_slug == link.slug %}current{% endif %}">{{ link.name }}
-                    </a>
-                </li>
+
+                {% if link.slug != 'help' %}
+                    <li>
+                        <a href="{% url 'section' link.slug %}"
+                           class="{% if request.resolver_match.kwargs.section_slug == link.slug %}current{% endif %}">{{ link.name }}
+                        </a>
+                    </li>
+                {% endif %}
             {% endfor %}
+           <li>
+                    <a href="{% url 'help' %}"
+                       class="{% if request.resolver_match.view_name == 'habr_help' %}current{% endif %}">Помощь
+                    </a>
+           </li>
         </ul>
 
     </div> <!-- end of templatemo_menu -->

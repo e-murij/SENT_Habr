@@ -1,0 +1,12 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Регистрация пользователя {{unverified_user.username}}</h3>
+    <p> Для завершения регистрации проверьте указанную почту {{unverified_user.email}}.
+        Перейдите по ссылке для подтверждения регистрации.</p>
+    <div class="cleaner_40"></div>
+    <a href="{% url 'auth:repeat_verify_email' unverified_user.pk %}"  class="btn btn-primary" style="color: #FFFFFF">
+        Повторить отправку письма</a>
+{% endblock %}
+
