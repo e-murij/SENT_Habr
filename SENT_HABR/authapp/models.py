@@ -24,6 +24,16 @@ class User(AbstractUser, TimeStampMixin):
         LikeDislike,
         related_query_name='users',
     )
+    activation_key = models.CharField(
+        max_length=128,
+        blank=True,
+    )
+    email = models.EmailField(
+        unique=True,
+    )
+    is_verify = models.BooleanField(
+        default=False,
+    )
 
     def __str__(self):
         return self.username

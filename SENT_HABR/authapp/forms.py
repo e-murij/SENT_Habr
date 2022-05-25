@@ -1,3 +1,6 @@
+import hashlib
+from random import random
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from authapp.models import User, UserProfile
@@ -20,6 +23,13 @@ class UserRegisterForm(UserCreationForm):
     avatar = forms.FileField(required=False,
                              widget=forms.FileInput(attrs={'class': 'form-control', 'name': 'avatar',
                                                            'style': "border-color: #1bafd5"}), label='Аватар')
+
+    def save(self, *args, **kwargs):
+        user = super(UserRegisterForm, self).save()
+        salt = hashlib.sha1(str(random()).encode('utf8')).hexdigest()[:6]
+        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+        user.save()
+        return user
 
     class Meta:
         model = User
