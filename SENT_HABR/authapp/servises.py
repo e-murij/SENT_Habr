@@ -1,3 +1,6 @@
+import hashlib
+from random import random
+
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -18,3 +21,11 @@ def send_verify_mail(user):
 def get_user_by_id(user_id):
     """Получене пользователя с id = user_id"""
     return get_object_or_404(User, pk=user_id)
+
+
+def create_activation_key(user):
+    """Создание ключа для активации для user"""
+    salt = hashlib.sha1(str(random()).encode('utf8')).hexdigest()[:6]
+    activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+    return activation_key
+
