@@ -1,4 +1,7 @@
 {% load static %}
+{% load cache %}
+
+{% cache 300 sidebar_one %}
 <div id="templatemo_sidebar_one">
 
     <h5>Лучшие статьи</h5>
@@ -18,3 +21,4 @@
     </ul>
 
 </div>
+{% endcache %}
