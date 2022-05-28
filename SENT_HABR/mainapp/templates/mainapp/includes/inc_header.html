@@ -12,6 +12,11 @@
                 <span>GB sent habr project</span>
             </h1>
         </div>
+
+        <div id="templatemo_rss">
+            <a href="{% url 'search:search' %}" class="btn btn-secondary" ><i class="fa fa-search"></i> Поиск</a>
+        </div>
+
         {% if user.is_authenticated %}
             <div id="templatemo_rss">
 
@@ -53,7 +58,6 @@
                 <a href="{% url 'auth:login' %}" class="btn btn-secondary">Войти</a>
             </div>
         {% endif %}
-
     </div> <!-- end of header -->
 
     <div id="templatemo_menu">
