@@ -6,13 +6,13 @@
 {% block content %}
     <ul class="service_box">
     <h4>{{ object.first_name }} {{ object.last_name }} ({{ object.username }})</h4>
-    <div class="left">
-        <img src="{{ object.avatar | user_avatar }}" alt="avatar"/>
-    </div>
-    <div class="right">
-        <p> {{ object.userprofile.about_me }} </p>
-    </div>
-    <div class="cleaner_h40"></div>
+<!--    <div class="left">-->
+<!--        <img src="{{ object.avatar | user_avatar }}" alt="avatar"/>-->
+<!--    </div>-->
+
+        <p> <img src="{{ object.avatar | user_avatar }}" alt="avatar" class="left" style="margin-right:20px"/> {{ object.userprofile.about_me }} </p>
+
+    <div class="cleaner_h20"></div>
     <ul> Пол:
         {% if object.userprofile.gender == 'W' %} Женский
         {% elif object.userprofile.gender == 'M' %} Мужской
@@ -24,6 +24,7 @@
     <ul> Дата регистрации: {{ object.created_at | date:"d.m.Y" }} </ul>
     <ul> Рейтинг: <span class="user_rating"> {{ object.votes.sum_rating }} </span></ul>
 
+        <div class="cleaner_h20"></div>
     <ul class="likes">
         {% csrf_token %}
         <li data-id="{{ object.id }}" data-type="user" class="like" title="Нравится">

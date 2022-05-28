@@ -2,7 +2,7 @@ from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import FormView, TemplateView
@@ -21,7 +21,8 @@ class LoginFormView(FormView):
         if self.user.is_verify:
             auth.login(self.request, self.user, backend='django.contrib.auth.backends.ModelBackend')
             next_page = self.request.POST.get('next')
-            return HttpResponseRedirect(self.request.POST.get('next')) if next_page else HttpResponseRedirect('/')
+            return HttpResponseRedirect('/') if not next_page or (
+                    '/auth/' in next_page) else HttpResponseRedirect(self.request.POST.get('next'))
         return HttpResponseRedirect(reverse_lazy('auth:verify_email', kwargs={'pk': self.user.pk}))
 
     def get_context_data(self, **kwargs):
