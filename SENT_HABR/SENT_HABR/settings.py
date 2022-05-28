@@ -222,3 +222,10 @@ EMAIL_USE_TLS = True
 # else:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'caches'),
+    }
+}
