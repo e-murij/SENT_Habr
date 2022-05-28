@@ -2,12 +2,11 @@
 <div id="templatemo_sidebar_one">
 
     <h5>Лучшие статьи</h5>
-    {% for article in popular_articles %}
-        <div class="recent_comment_box">
-            <a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a>
-            <p>{{ article.content|safe|truncatewords:5 }}</p>
-        </div>
-    {% endfor %}
+    <ul class="templatemo_list">
+        {% for article in popular_articles %}
+           <li> <a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></li>
+        {% endfor %}
+    </ul>
 
     <div class="cleaner_h40"></div>
 

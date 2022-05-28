@@ -12,8 +12,8 @@
 
                 <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
                 <strong>Автор:</strong> {{article.author.username}}
-                <div class="cleaner_h40"></div>
-                <p> {{ article.content|safe|truncatewords:30 }} </p>
+
+                <p> {{ article.content|safe|truncatewords:20 }} </p>
 
                 <div class="cleaner"></div>
                 <div class="category"> Раздел: {{article.section.name}} </div>

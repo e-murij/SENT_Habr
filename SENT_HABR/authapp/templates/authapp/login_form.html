@@ -11,6 +11,7 @@
             <input type="hidden" name="next" value="{{ request.META.HTTP_REFERER }}">
             <button type="submit" class="btn btn-primary">Войти</button>
             <a href="{% url 'auth:register' %}"  class="btn btn-primary" style="color: #FFFFFF">Зарегистрироваться</a>
+            <a href="{% url 'auth:password_reset' %}"  class="btn btn-primary" style="color: #FFFFFF">Забыли пароль?</a>
         </form>
     </div>
 {% endblock %}
