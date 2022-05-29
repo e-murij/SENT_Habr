@@ -1,0 +1,188 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load media_users %}
+
+{% block content %}
+
+<h2>Поиск</h2>
+<form action="{% url 'search:search' %}" method="get">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="input-group mb-3">
+        <input name="q" type="text" class="form-control" placeholder="Поиск" aria-label="Поиск"
+               aria-describedby="button-addon2">
+        <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
+    </div>
+
+</form>
+
+<div class="cleaner_h40"></div>
+<p>Результат поиска по запросу: {{query}}</p>
+<div class="cleaner_h20"></div>
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all"
+                type="button" role="tab" aria-controls="pills-all" aria-selected="true">Все
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-article-tab" data-bs-toggle="pill" data-bs-target="#pills-article"
+                type="button" role="tab" aria-controls="pills-article" aria-selected="false">Статьи
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-user-tab" data-bs-toggle="pill" data-bs-target="#pills-user"
+                type="button" role="tab" aria-controls="pills-user" aria-selected="false">Пользователи
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-comment-tab" data-bs-toggle="pill" data-bs-target="#pills-comment"
+                type="button" role="tab" aria-controls="pills-comment" aria-selected="false">Комментарии
+        </button>
+    </li>
+</ul>
+
+
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+        {% for article in articles %}
+        <div class="post_section"><span class="bottom"></span>
+
+            <span class="comment">{{ article.comment_set.count }}</span>
+
+            <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
+
+            <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
+            <strong>Автор:</strong> {{article.author.username}}
+
+            <p> {{ article.content|safe|truncatewords:20 }} </p>
+
+            <div class="cleaner"></div>
+            <div class="category"> Раздел: {{article.section.name}}</div>
+            <div class="category"> Рейтинг: {{ article.votes.sum_rating }}</div>
+            <div class="category"> Тэги:
+                {% for tag in article.tags.all %}
+                {{tag.name}} |
+                {% endfor %}
+            </div>
+            <div class="button float_r">
+                <a href="{% url 'articleapp:detail' article.pk %}" class="more">Читать далее</a>
+            </div>
+            <div class="cleaner"></div>
+
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+        {% endfor %}
+
+        {% for user in users %}
+        <div class="post_section"><span class="bottom"></span>
+
+            <h2>
+                <a href="{% url 'account:personal_page' user.pk %}">{{user.username}}({{user.first_name}}
+                    {{user.last_name}})</a>
+            </h2>
+
+            <p> {{ user.userprofile.about_me }} </p>
+
+            <div class="cleaner"></div>
+
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+        {% endfor %}
+
+        {% for comment in comments %}
+        <div class="post_section"><span class="bottom"></span>
+
+            <h2>
+                <a href="{% url 'articleapp:detail' comment.article.pk %}">Комментарий к статье
+                    {{comment.article.title}})</a>
+            </h2>
+
+            <p> {{ comment.content }} </p>
+
+            <div class="cleaner"></div>
+
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+        {% endfor %}
+    </div>
+
+    <div class="tab-pane fade show active" id="pills-article" role="tabpanel" aria-labelledby="pills-article-tab">
+        {% for article in articles %}
+        <div class="post_section"><span class="bottom"></span>
+
+            <span class="comment">{{ article.comment_set.count }}</span>
+
+            <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
+
+            <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
+            <strong>Автор:</strong> {{article.author.username}}
+
+            <p> {{ article.content|safe|truncatewords:20 }} </p>
+
+            <div class="cleaner"></div>
+            <div class="category"> Раздел: {{article.section.name}}</div>
+            <div class="category"> Рейтинг: {{ article.votes.sum_rating }}</div>
+            <div class="category"> Тэги:
+                {% for tag in article.tags.all %}
+                {{tag.name}} |
+                {% endfor %}
+            </div>
+            <div class="button float_r">
+                <a href="{% url 'articleapp:detail' article.pk %}" class="more">Читать далее</a>
+            </div>
+            <div class="cleaner"></div>
+
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+        {% endfor %}
+
+    </div>
+
+
+    <div class="tab-pane fade" id="pills-user" role="tabpanel" aria-labelledby="pills-user-tab">
+        {% for user in users %}
+        <div class="post_section"><span class="bottom"></span>
+
+            <h2>
+                <a href="{% url 'account:personal_page' user.pk %}">{{user.username}}({{user.first_name}}
+                    {{user.last_name}})</a>
+            </h2>
+
+            <p> {{ user.userprofile.about_me }} </p>
+
+            <div class="cleaner"></div>
+
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+        {% endfor %}
+
+    </div>
+    <div class="tab-pane fade" id="pills-comment" role="tabpanel" aria-labelledby="pills-comment-tab">
+        {% for comment in comments %}
+        <div class="post_section"><span class="bottom"></span>
+
+            <h2>
+                <a href="{% url 'articleapp:detail' comment.article.pk %}">Комментарий к статье
+                    {{comment.article.title}})</a>
+            </h2>
+
+            <p> {{ comment.content }} </p>
+
+            <div class="cleaner"></div>
+
+        </div>
+        <div class="cleaner"></div>
+        <div class="cleaner_h40"><!-- a spacing between 2 posts --></div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
