@@ -48,6 +48,12 @@ class Section(TimeStampMixin):
 
 
 class Article(TimeStampMixin):
+    MODERATION = 'MOD'
+    DRAFT = 'DRAFT'
+    STATUS_CHOICES = (
+        (MODERATION, 'модерация'),
+        (DRAFT, 'черновик'),
+    )
     author = models.ForeignKey(
         User,
         null=True,
@@ -79,6 +85,12 @@ class Article(TimeStampMixin):
     is_published = models.BooleanField(
         default=False,
         verbose_name='опубликовать'
+    )
+    status = models.CharField(
+        verbose_name='статус статьи',
+        max_length=5,
+        choices=STATUS_CHOICES,
+        default='DRAFT'
     )
     votes = GenericRelation(
         LikeDislike,

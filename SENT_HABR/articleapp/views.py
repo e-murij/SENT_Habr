@@ -31,6 +31,13 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
         obj = self.get_object()
         return obj.author == self.request.user or self.request.user.is_superuser or self.request.user.is_staff
 
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.object.status == 'DRAFT':
+            self.object.is_published = False
+            self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
     def get_context_data(self, **kwargs):
         context = super(ArticleEditView, self).get_context_data(**kwargs)
         article = get_article_by_id(self.kwargs.get('pk'))

@@ -22,9 +22,10 @@ class TagAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'author', 'is_active', 'is_published')
-    list_display_links = ('id', 'title', 'author', 'is_active', 'is_published')
+    list_display = ('id', 'title', 'author', 'is_active', 'is_published', 'status')
+    list_display_links = ('id', 'title', 'author', 'is_active', 'is_published', 'status')
     form = ArticleAdminForm
+    ordering = ('is_published', '-status')
 
 
 admin.site.register(Tag, TagAdmin)
