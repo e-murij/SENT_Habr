@@ -40,3 +40,5 @@ class Comment(TimeStampMixin):
     class Meta:
         db_table = "comments"
         ordering = ("-updated_at",)
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
