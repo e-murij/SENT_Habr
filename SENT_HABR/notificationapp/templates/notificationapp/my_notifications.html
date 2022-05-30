@@ -8,7 +8,7 @@
     <div class="cleaner_h20"></div>
     {% for notification in unread_notify %}
         <div class="callout">
-        <li class="notyfi_list">   <a href="{% url 'notification:mark_as_read' notification.pk %}"
+        <li class="notify_list">   <a href="{% url 'notification:mark_as_read' notification.pk %}"
                   title="Отметить как прочитанное" style="text-decoration: none"> {{notification | notify_text}} </a>
         </li>
         </div>
@@ -16,7 +16,7 @@
 
     {% for notification in read_notify %}
         <div class="callout callout-read">
-        <li class="notyfi_list" style="opacity: 0.33"> {{notification | notify_text}}</li>
+        <li class="notify_list" style="opacity: 0.33"> {{notification | notify_text}}</li>
         </div>
     {% endfor %}
 
