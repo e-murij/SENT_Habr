@@ -22,6 +22,8 @@ class Tag(TimeStampMixin):
 
     class Meta:
         db_table = "tags"
+        verbose_name = "Тэг"
+        verbose_name_plural = "Тэги"
 
 
 class Section(TimeStampMixin):
@@ -41,6 +43,8 @@ class Section(TimeStampMixin):
 
     class Meta:
         db_table = "sections"
+        verbose_name = "Раздел"
+        verbose_name_plural = "Разделы"
 
 
 class Article(TimeStampMixin):
@@ -85,5 +89,7 @@ class Article(TimeStampMixin):
         return self.title
 
     class Meta:
+        verbose_name = "Статья"
+        verbose_name_plural = "Статьи"
         db_table = "articles"
         ordering = ("-updated_at",)
