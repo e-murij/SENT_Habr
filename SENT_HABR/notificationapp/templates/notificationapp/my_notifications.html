@@ -7,12 +7,17 @@
     <h2> Уведомления для пользователя {{user.username}}: </h2>
     <div class="cleaner_h20"></div>
     {% for notification in unread_notify %}
-        <li>  {{notification | notify_text}} <a href="{% url 'notification:mark_as_read' notification.pk %}"
-                                               title="Отметить как прочитанное" style="text-decoration: none"> ✓ </a></li>
+        <div class="callout">
+        <li class="notify_list">   <a href="{% url 'notification:mark_as_read' notification.pk %}"
+                  title="Отметить как прочитанное" style="text-decoration: none"> {{notification | notify_text}} </a>
+        </li>
+        </div>
     {% endfor %}
 
     {% for notification in read_notify %}
-        <li style="opacity: 0.33"> {{notification | notify_text}}</li>
+        <div class="callout callout-read">
+        <li class="notify_list" style="opacity: 0.33"> {{notification | notify_text}}</li>
+        </div>
     {% endfor %}
 
 {% endblock %}

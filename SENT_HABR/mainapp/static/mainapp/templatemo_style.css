@@ -259,6 +259,30 @@ input[type=file]::file-selector-button:hover {
 
 /*end dropdown menu*/
 
+/*notyfi block*/
+
+.callout {
+    padding: 0.25rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border: 1px solid #e9ecef;
+    border-left-width: 0.25rem;
+    border-radius: 0.25rem;
+    border-left-color: #1bafd5;
+}
+
+.callout-read {
+    border-left-color: #e4e1e1;
+}
+
+.notify_list {
+    list-style-type: none
+}
+
+
+/*end notyfi block*/
+
+
 #templatemo_header_wrapper {
     width: 100%;
     height: 111px;
