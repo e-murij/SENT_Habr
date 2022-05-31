@@ -5,6 +5,7 @@ from authapp.servises import create_activation_key
 
 
 class UserRegisterForm(UserCreationForm):
+    """Описание формы для регистрации пользователя на сайте"""
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}), label='Никнейм')
     first_name = forms.CharField(
@@ -34,6 +35,7 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserAuthenticationForm(AuthenticationForm):
+    """Описание формы для аутентификации пользователя(логин)"""
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username', 'placeholder': 'Никнейм'}),
         label='Никнейм')
@@ -47,6 +49,7 @@ class UserAuthenticationForm(AuthenticationForm):
 
 
 class UpdateUserForm(forms.ModelForm):
+    """Описание формы для изменения/добавления основной информации о пользователе на сайте"""
     username = forms.CharField(max_length=100, required=True,
                                widget=forms.TextInput(attrs={'class': 'form-control'}), label='Никнейм')
     first_name = forms.CharField(
@@ -65,6 +68,7 @@ class UpdateUserForm(forms.ModelForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
+    """Описание формы для изменения/добавления дополнительной информации о пользователе на сайте"""
     about_me = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
                                label='Обо мне')
     gender = forms.ChoiceField(required=False, widget=forms.RadioSelect,

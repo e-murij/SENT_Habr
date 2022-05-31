@@ -6,6 +6,7 @@ from likeapp.models import LikeDislike
 
 
 class Tag(TimeStampMixin):
+    """ Тэги для статей """
     name = models.CharField(
         verbose_name='тэг',
         max_length=128,
@@ -27,6 +28,7 @@ class Tag(TimeStampMixin):
 
 
 class Section(TimeStampMixin):
+    """ Разделы для статьей """
     name = models.CharField(
         verbose_name='раздел',
         max_length=128,
@@ -48,6 +50,7 @@ class Section(TimeStampMixin):
 
 
 class Article(TimeStampMixin):
+    """ Cтатьи """
     MODERATION = 'MOD'
     DRAFT = 'DRAFT'
     STATUS_CHOICES = (

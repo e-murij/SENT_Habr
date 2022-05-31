@@ -7,6 +7,7 @@ from persaccapp.services import get_articles_by_author
 
 
 class PersonalDetailView(DetailView):
+    """Отображение личной страницы пользователя"""
     template_name = 'persaccapp/personal_page.html'
     model = User
 
@@ -18,6 +19,7 @@ class PersonalDetailView(DetailView):
 
 
 class MyArticlesList(LoginRequiredMixin, ListView):
+    """Отображение списка статей созданных залогиненным пользователем"""
     template_name = 'persaccapp/my_articles.html'
     model = Article
 

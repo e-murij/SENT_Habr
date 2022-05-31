@@ -5,6 +5,7 @@ from likeapp.services import LikeDislikeManager
 
 
 class LikeDislike(models.Model):
+    """Лайк/дизлайк для любого типа объектов приложения"""
     LIKE = 1
     DISLIKE = -1
 

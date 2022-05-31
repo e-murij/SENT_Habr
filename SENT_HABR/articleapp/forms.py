@@ -6,6 +6,7 @@ from .models import Article, Tag, Section
 
 
 class ArticleUpdateForm(forms.ModelForm):
+    """Описание формы для изменения статьи"""
     content = forms.CharField(widget=CKEditorUploadingWidget(), label='Содержание')
     status = forms.ChoiceField(required=False, widget=forms.RadioSelect,
                                choices=Article.STATUS_CHOICES,
@@ -30,6 +31,7 @@ class ArticleUpdateForm(forms.ModelForm):
 
 
 class ArticleCreateForm(forms.ModelForm):
+    """Описание формы для создания статьи"""
     content = forms.CharField(widget=CKEditorUploadingWidget(), label='Содержание')
     status = forms.ChoiceField(widget=forms.RadioSelect,
                                choices=Article.STATUS_CHOICES,

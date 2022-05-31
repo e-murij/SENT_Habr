@@ -13,6 +13,7 @@ from authapp.servises import get_user_by_id, send_verify_mail, create_activation
 
 
 class LoginFormView(FormView):
+    """Логин рользователя на сайте"""
     form_class = UserAuthenticationForm
     template_name = "authapp/login_form.html"
 
@@ -33,6 +34,7 @@ class LoginFormView(FormView):
 
 
 class RegisterFormView(FormView):
+    """ Регистрация польщователя на сайте """
     form_class = UserRegisterForm
     template_name = "authapp/register_form.html"
 
@@ -52,12 +54,14 @@ class RegisterFormView(FormView):
 
 
 class LogoutView(View):
+    """Выход пользователя(logout)"""
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class EditView(LoginRequiredMixin, FormView):
+    """Добавление/изменение основной и дополнительной информации о пользователе"""
     user_form = UpdateUserForm
     profile_form = UpdateProfileForm
     template_name = 'authapp/edit_form.html'
@@ -82,6 +86,7 @@ class EditView(LoginRequiredMixin, FormView):
 
 
 class VerifyView(View):
+    """Верификация пользователя по email. Если activation_key совпадает is_verify ставится в true """
     def get(self, request, email, activation_key):
         try:
             user = User.objects.get(email=email)
@@ -99,6 +104,7 @@ class VerifyView(View):
 
 
 class VerifyEmailView(TemplateView):
+    """Инфрмация для неверифицированного пользователя при попытке залогиниться"""
     template_name = 'authapp/verify_email.html'
 
     def get_context_data(self, **kwargs):
@@ -109,6 +115,7 @@ class VerifyEmailView(TemplateView):
 
 
 class RepeatVerifyEmailView(View):
+    """Повтор отправки верификационного письма"""
     def get(self, request, *args, **kwargs):
         user = get_user_by_id(kwargs['pk'])
         user.activation_key = create_activation_key(user)
