@@ -8,6 +8,7 @@ from likeapp.models import LikeDislike
 
 
 class TimeStampMixin(models.Model):
+    """Добавление временных меток к моделям"""
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -16,6 +17,7 @@ class TimeStampMixin(models.Model):
 
 
 class User(AbstractUser, TimeStampMixin):
+    """ Пользователи """
     avatar = models.ImageField(
         upload_to='users_avatars',
         blank=True,
@@ -45,6 +47,7 @@ class User(AbstractUser, TimeStampMixin):
 
 
 class UserProfile(models.Model):
+    """ Пользователи: дополнительная информация """
     MALE = 'M'
     FEMALE = 'W'
     GENDER_CHOICES = (

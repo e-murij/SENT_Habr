@@ -4,6 +4,7 @@ from django.db.models import Sum
 
 
 class LikeDislikeManager(models.Manager):
+    """Расширение объектного менеджера для модели LikeDislike"""
     use_for_related_fields = True
 
     def likes(self):

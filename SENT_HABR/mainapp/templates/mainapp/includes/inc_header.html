@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     {% if user.is_superuser %}
-                        <li><a class="dropdown-item" href="admin/">Админ. панель</a></li>
+                        <li><a class="dropdown-item" href="{% url 'admin:index' %}">Админ. панель</a></li>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Выход</a></li>
                     <li>

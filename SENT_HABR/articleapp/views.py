@@ -10,6 +10,7 @@ from .forms import ArticleCreateForm, ArticleUpdateForm
 
 
 class ArticleDetailView(DetailView):
+    """ Просмотр полной статьи с комментариями к ней """
     template_name = 'articleapp/article_read.html'
     model = Article
 
@@ -22,6 +23,7 @@ class ArticleDetailView(DetailView):
 
 
 class ArticleEditView(LoginRequiredMixin, UpdateView):
+    """ Изменение статьи автором или администратором сайта"""
     model = Article
     template_name = 'articleapp/article_edit.html'
     form_class = ArticleUpdateForm
@@ -52,6 +54,7 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
 
 
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
+    """ Удаление статьи. Флаги is_actve is_published ставятся в false, фактически статья из базы данных не удаляется"""
     template_name = 'articleapp/article_delete.html'
     success_url = reverse_lazy('account:my_articles')
     model = Article
@@ -74,6 +77,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
+    """ Создание новой статьи """
     template_name = 'articleapp/article_create.html'
     form_class = ArticleCreateForm
     success_url = reverse_lazy('account:my_articles')

@@ -5,6 +5,7 @@ from searchapp.servises import articles_search, users_search, comments_search
 
 
 class SearchView(View):
+    """ Отображение разультатов поиска """
     template_name = 'searchapp/search.html'
 
     def get(self, request):
