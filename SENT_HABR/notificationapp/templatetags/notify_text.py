@@ -4,8 +4,10 @@ from likeapp.models import LikeDislike
 
 register = template.Library()
 
+
 @register.filter(name='notify_text')
 def notify_text(notify_object):
+    """Возвращает строку для отображения уведомления notify_object"""
     content_type = notify_object.content_type.model
     if content_type == 'comment':
         try:
@@ -24,5 +26,3 @@ def notify_text(notify_object):
                 return f'Вас oценил пользователь {obj.user.username}'
         except LikeDislike.DoesNotExist:
             return f'Лайк/дизлайк удален'
-
-

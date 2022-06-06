@@ -9,6 +9,7 @@ from notificationapp.services import mark_notify_as_read, \
 
 
 class NotificationsList(LoginRequiredMixin, ListView):
+    """Вывод списка уведомлений для залогиненного пользователя"""
     template_name = 'notificationapp/my_notifications.html'
     model = Notification
 
@@ -21,6 +22,7 @@ class NotificationsList(LoginRequiredMixin, ListView):
 
 
 class MarkAsRead(LoginRequiredMixin, View):
+    """Отметить уведомление как прочитанное"""
     def get(self, request, pk):
         mark_notify_as_read(pk)
         return redirect(request.META.get('HTTP_REFERER'))

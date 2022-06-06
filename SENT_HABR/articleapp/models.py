@@ -6,6 +6,7 @@ from likeapp.models import LikeDislike
 
 
 class Tag(TimeStampMixin):
+    """ Тэги для статей """
     name = models.CharField(
         verbose_name='тэг',
         max_length=128,
@@ -22,9 +23,12 @@ class Tag(TimeStampMixin):
 
     class Meta:
         db_table = "tags"
+        verbose_name = "Тэг"
+        verbose_name_plural = "Тэги"
 
 
 class Section(TimeStampMixin):
+    """ Разделы для статьей """
     name = models.CharField(
         verbose_name='раздел',
         max_length=128,
@@ -41,9 +45,18 @@ class Section(TimeStampMixin):
 
     class Meta:
         db_table = "sections"
+        verbose_name = "Раздел"
+        verbose_name_plural = "Разделы"
 
 
 class Article(TimeStampMixin):
+    """ Cтатьи """
+    MODERATION = 'MOD'
+    DRAFT = 'DRAFT'
+    STATUS_CHOICES = (
+        (MODERATION, 'модерация'),
+        (DRAFT, 'черновик'),
+    )
     author = models.ForeignKey(
         User,
         null=True,
@@ -76,6 +89,12 @@ class Article(TimeStampMixin):
         default=False,
         verbose_name='опубликовать'
     )
+    status = models.CharField(
+        verbose_name='статус статьи',
+        max_length=5,
+        choices=STATUS_CHOICES,
+        default='DRAFT'
+    )
     votes = GenericRelation(
         LikeDislike,
         related_query_name='articles',
@@ -85,5 +104,7 @@ class Article(TimeStampMixin):
         return self.title
 
     class Meta:
+        verbose_name = "Статья"
+        verbose_name_plural = "Статьи"
         db_table = "articles"
         ordering = ("-updated_at",)

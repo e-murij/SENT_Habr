@@ -9,6 +9,12 @@ from notificationapp.services import create_notify, delete_notif_about_object
 
 
 class VotesView(View):
+    """
+        Создание/изменение/удаление лайков/дизлайков.
+        На вход принимает название модели контента, id объекта, к которому относится лайк/дизлайк, тип голоса
+        Возвращает json c суммарным с учетом этого голоса количеством лайков/дизлайков и общим рейтингом объекта
+
+    """
     model = None
     vote_type = None
 

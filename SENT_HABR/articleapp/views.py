@@ -10,6 +10,7 @@ from .forms import ArticleCreateForm, ArticleUpdateForm
 
 
 class ArticleDetailView(DetailView):
+    """ Просмотр полной статьи с комментариями к ней """
     template_name = 'articleapp/article_read.html'
     model = Article
 
@@ -22,6 +23,7 @@ class ArticleDetailView(DetailView):
 
 
 class ArticleEditView(LoginRequiredMixin, UpdateView):
+    """ Изменение статьи автором или администратором сайта"""
     model = Article
     template_name = 'articleapp/article_edit.html'
     form_class = ArticleUpdateForm
@@ -30,6 +32,13 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
     def check_author(self):
         obj = self.get_object()
         return obj.author == self.request.user or self.request.user.is_superuser or self.request.user.is_staff
+
+    def form_valid(self, form):
+        self.object = form.save()
+        if self.object.status == 'DRAFT':
+            self.object.is_published = False
+            self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         context = super(ArticleEditView, self).get_context_data(**kwargs)
@@ -45,6 +54,7 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
 
 
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
+    """ Удаление статьи. Флаги is_actve is_published ставятся в false, фактически статья из базы данных не удаляется"""
     template_name = 'articleapp/article_delete.html'
     success_url = reverse_lazy('account:my_articles')
     model = Article
@@ -67,6 +77,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
+    """ Создание новой статьи """
     template_name = 'articleapp/article_create.html'
     form_class = ArticleCreateForm
     success_url = reverse_lazy('account:my_articles')
