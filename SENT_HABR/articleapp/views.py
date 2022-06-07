@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from articleapp.models import Article
-from articleapp.services import get_comments, get_article_by_id
+from articleapp.services import get_comments, get_article_by_id, queryset_for_articles
 
 from .forms import ArticleCreateForm, ArticleUpdateForm
 
@@ -13,6 +13,7 @@ class ArticleDetailView(DetailView):
     """ Просмотр полной статьи с комментариями к ней """
     template_name = 'articleapp/article_read.html'
     model = Article
+    queryset = queryset_for_articles()
 
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
@@ -58,6 +59,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'articleapp/article_delete.html'
     success_url = reverse_lazy('account:my_articles')
     model = Article
+    queryset = queryset_for_articles()
 
     def check_author(self):
         obj = self.get_object()

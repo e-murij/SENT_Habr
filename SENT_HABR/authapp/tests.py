@@ -19,33 +19,29 @@ class TestUserManagement(TestCase):
                                                               first_name='Test2')
 
     def test_user_login(self):
-        # главная без логина
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['user'].is_anonymous)
 
-        # данные пользователя
         self.client.login(username='user_test1', password='Qwerty1')
 
-        # логинимся
         response = self.client.get('/auth/login/')
         self.assertFalse(response.context['user'].is_anonymous)
         self.assertEqual(response.context['user'], self.user)
 
-        # главная после логина
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['user'], self.user)
 
     def test_user_access(self):
-        # попытка простого пользователя зайти в админку
+
         self.client.login(username='user_test1', password='Qwerty1')
         response = self.client.get('/admin/index')
         self.assertEqual(response.status_code, 200)
         # self.assertEqual(response.context['user'], self.user)
 
     #
-    #     # попытка суперпользователя зайти в админку
+
     #     self.client.login(username='Admin_test', password='Qwerty1')
     #     response = self.client.get('/admin/')
     #     self.assertEqual(response.context['user'], self.user)
