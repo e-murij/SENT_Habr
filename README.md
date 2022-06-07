@@ -10,7 +10,7 @@
 
 ### Локальный запуск проекта 
 
-Клоноровать репозиторий 
+Клонировать репозиторий 
 
 ```
 git clone https://github.com/e-murij/SENT_Habr.git
@@ -21,7 +21,9 @@ git clone https://github.com/e-murij/SENT_Habr.git
 pip install -r requirements.txt
 ```
 
-Перейти в папку SENT_HABR, переименовать файл .env.template в .env и заполнить его своими данными
+Перейти в папку SENT_HABR, settings.py_dev переименовать в settings.py
+переименовать файл .env.template в .env и заполнить его своими данными
+
 
 ```
 EMAIL_HOST='smtp.email-domain.com'
@@ -37,7 +39,7 @@ DOMAIN_NAME='http://localhost:8000'
 ```
 python manage.py makemigrations
 python manage.py migrate 
-python manage.py runserver --settings=SENT_HABR.settings_dev  
+python manage.py runserver
 ```
 По умолчанию приложение запуститься на http://localhost:8000
 Можно указать другой порт
