@@ -1,7 +1,8 @@
 from django.views import View
 from django.views.generic import ListView, TemplateView
 from articleapp.models import Article
-from articleapp.services import get_all_articles, get_articles_by_section
+from articleapp.services import get_articles_by_section, queryset_for_articles, \
+    get_all_published_articles
 
 
 class IndexListView(ListView):
@@ -11,8 +12,8 @@ class IndexListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = super(IndexListView, self).get_queryset()
-        return get_all_articles(queryset)
+        queryset = queryset_for_articles()
+        return get_all_published_articles(queryset)
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
@@ -27,7 +28,7 @@ class SectionListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = super(SectionListView, self).get_queryset()
+        queryset = queryset_for_articles()
         return get_articles_by_section(queryset, self.kwargs['section_slug'])
 
     def get_context_data(self, **kwargs):
@@ -42,7 +43,7 @@ class HelpView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HelpView, self).get_context_data(**kwargs)
-        help_article = get_articles_by_section(Article.objects.all(), 'help').first()
+        help_article = get_articles_by_section(queryset_for_articles(), 'help').first()
         context['help_article'] = help_article
         return context
 

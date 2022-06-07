@@ -8,12 +8,12 @@
 
                 <span class="comment">{{ article.comment_set.count }}</span>
 
-                <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
+                <h3><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h3>
 
                 <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
                 <strong>Автор:</strong> {{article.author.username}}
 
-                <p> {{ article.content|safe|truncatewords:20 }} </p>
+                <p> {{ article.content|safe|truncatewords_html:20 }} </p>
 
                 <div class="cleaner"></div>
                 <div class="category"> Раздел: {{article.section.name}} </div>

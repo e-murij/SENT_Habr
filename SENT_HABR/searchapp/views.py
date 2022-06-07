@@ -12,7 +12,6 @@ class SearchView(View):
         context = {'title': 'search'}
         q = request.GET.get('q')
         if q:
-            print(q)
             context['articles'] = articles_search(query=q)
             context['users'] = users_search(query=q)
             context['comments'] = comments_search(query=q)
