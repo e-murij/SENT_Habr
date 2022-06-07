@@ -411,6 +411,15 @@ input[type=file]::file-selector-button:hover {
     background: #f5f4f4 url(images/templatemo_content.png) right repeat-y;
 }
 
+/* pesonal page */
+.page_avatar{
+    object-fit: cover;
+    margin-right:20px;
+    border-radius: 10px;
+}
+/* end of pesonal page*/
+
+
 /* content */
 
 #templatemo_content {

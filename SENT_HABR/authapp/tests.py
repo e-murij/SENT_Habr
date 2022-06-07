@@ -19,7 +19,6 @@ class TestUserManagement(TestCase):
                                                               first_name='Test2')
 
     def test_user_login(self):
-        # ������� ��� ������
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['user'].is_anonymous)
@@ -30,19 +29,19 @@ class TestUserManagement(TestCase):
         self.assertFalse(response.context['user'].is_anonymous)
         self.assertEqual(response.context['user'], self.user)
 
-        # ������� ����� ������
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['user'], self.user)
 
     def test_user_access(self):
+
         self.client.login(username='user_test1', password='Qwerty1')
         response = self.client.get('/admin/index')
         self.assertEqual(response.status_code, 200)
         # self.assertEqual(response.context['user'], self.user)
 
     #
-    #     # ������� ����������������� ����� � �������
+
     #     self.client.login(username='Admin_test', password='Qwerty1')
     #     response = self.client.get('/admin/')
     #     self.assertEqual(response.context['user'], self.user)
