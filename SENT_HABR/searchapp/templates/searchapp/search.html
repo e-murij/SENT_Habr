@@ -79,10 +79,10 @@
         {% for user in users %}
         <div class="post_section"><span class="bottom"></span>
 
-            <h2>
+            <h3>
                 <a href="{% url 'account:personal_page' user.pk %}">{{user.username}}({{user.first_name}}
                     {{user.last_name}})</a>
-            </h2>
+            </h3>
 
             <p> {{ user.userprofile.about_me }} </p>
 
@@ -96,10 +96,10 @@
         {% for comment in comments %}
         <div class="post_section"><span class="bottom"></span>
 
-            <h2>
+            <h3>
                 <a href="{% url 'articleapp:detail' comment.article.pk %}">Комментарий к статье
                     {{comment.article.title}})</a>
-            </h2>
+            </h3>
 
             <p> {{ comment.content }} </p>
 
@@ -117,12 +117,12 @@
 
             <span class="comment">{{ article.comment_set.count }}</span>
 
-            <h2><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h2>
+            <h3><a href="{% url 'articleapp:detail' article.pk %}">{{article.title}}</a></h3>
 
             <strong>Дата публикации:</strong> {{ article.updated_at |date:" d.m.Y H:i" }}|
             <strong>Автор:</strong> {{article.author.username}}
 
-            <p> {{ article.content|safe|truncatewords:20 }} </p>
+            <p> {{ article.content|safe|truncatewords_html:20 }} </p>
 
             <div class="cleaner"></div>
             <div class="category"> Раздел: {{article.section.name}}</div>
@@ -149,10 +149,10 @@
         {% for user in users %}
         <div class="post_section"><span class="bottom"></span>
 
-            <h2>
+            <h3>
                 <a href="{% url 'account:personal_page' user.pk %}">{{user.username}}({{user.first_name}}
                     {{user.last_name}})</a>
-            </h2>
+            </h3>
 
             <p> {{ user.userprofile.about_me }} </p>
 
@@ -168,10 +168,10 @@
         {% for comment in comments %}
         <div class="post_section"><span class="bottom"></span>
 
-            <h2>
+            <h3>
                 <a href="{% url 'articleapp:detail' comment.article.pk %}">Комментарий к статье
                     {{comment.article.title}})</a>
-            </h2>
+            </h3>
 
             <p> {{ comment.content }} </p>
 
